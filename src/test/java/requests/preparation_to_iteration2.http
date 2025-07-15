@@ -1,0 +1,58 @@
+
+### Preparation for iteration 2
+### Authorization as admin
+# Authorization: Basic YWRtaW46YWRtaW4=
+POST http://localhost:4111/api/v1/auth/login
+Content-Type: application/json
+
+{
+  "username": "admin",
+  "password": "admin"
+}
+
+### Create user zimeni for further tests:
+#result: "id": 1
+POST http://localhost:4111/api/v1/admin/users
+Authorization: Basic YWRtaW46YWRtaW4=
+Content-Type: application/json
+
+{
+  "username": "zimeni",
+  "password": "Zimeni33$",
+  "role": "USER"
+}
+
+### Create user notZimeni for further tests:
+#result: "id": 2
+#Authorization: Basic bm90WmltZW5pOm5vdFppbWVuaTMzJA==
+POST http://localhost:4111/api/v1/admin/users
+Authorization: Basic YWRtaW46YWRtaW4=
+Content-Type: application/json
+
+{
+  "username": "notZimeni",
+  "password": "notZimeni33$",
+  "role": "USER"
+}
+
+### Authorization as user zimeni
+# Authorization: Basic emltZW5pOlppbWVuaTMzJA==
+POST http://localhost:4111/api/v1/auth/login
+Content-Type: application/json
+
+{
+  "username": "zimeni",
+  "password": "Zimeni33$"
+}
+
+### Authorization as user notZimeni
+# Authorization: Basic bm90WmltZW5pOm5vdFppbWVuaTMzJA==
+POST http://localhost:4111/api/v1/auth/login
+Content-Type: application/json
+
+{
+  "username": "notZimeni",
+  "password": "notZimeni33$"
+}
+
+

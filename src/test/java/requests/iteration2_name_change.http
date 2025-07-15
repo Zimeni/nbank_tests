@@ -1,0 +1,110 @@
+
+## В постановке нет данных по тому, есть ли какие-то требования к имени пользователя, нужно узнать и сделать тесты по ним
+
+#Итерация 2:
+#1. Депозит денег пользователем
+#2. Перевод денег с одного аккаунта на другой
+#3. Изменение имени пользователя
+
+
+#3. Авторизованныйюзерможетсоздаватьновыйсчет
+#4. Авторизованный юзер может пополнять свой счет
+#5. Авторизованный юзер может пересылать деньги с одного счета на другой
+#6. Авторизованный юзер может видеть транзакции своих счетов
+#7. Авторизованный юзер может изменить имя в профиле
+
+
+
+### Positive: Authorized user with USER role can change name in his profile
+# result:
+#{
+#  "message": "Profile updated successfully",
+#  "customer": {
+#    "id": 1,
+#    "username": "zimeni",
+#    "password": "$2a$10$tifQ6F9FlvX6Jr9UQ0ZZ2.VT8idjuSZZJyKSz2prMJppQpqZeF53K",
+#    "name": "zimeniUpdated",
+#    "role": "USER",
+#    "accounts": [
+#      {
+#        "id": 2,
+#        "accountNumber": "ACC2",
+#        "balance": 50.0,
+#        "transactions": [
+#          {
+#            "id": 3,
+#            "amount": 50.0,
+#            "type": "TRANSFER_IN",
+#            "timestamp": "Tue Jul 15 18:34:52 UTC 2025",
+#            "relatedAccountId": 1
+#          }
+#        ]
+#      },
+#      {
+#        "id": 1,
+#        "accountNumber": "ACC1",
+#        "balance": 0.0,
+#        "transactions": [
+#          {
+#            "id": 1,
+#            "amount": 100.0,
+#            "type": "DEPOSIT",
+#            "timestamp": "Tue Jul 15 18:13:01 UTC 2025",
+#            "relatedAccountId": 1
+#          },
+#          {
+#            "id": 2,
+#            "amount": 50.0,
+#            "type": "TRANSFER_OUT",
+#            "timestamp": "Tue Jul 15 18:34:52 UTC 2025",
+#            "relatedAccountId": 2
+#          },
+#          {
+#            "id": 4,
+#            "amount": 50.0,
+#            "type": "TRANSFER_OUT",
+#            "timestamp": "Tue Jul 15 18:35:44 UTC 2025",
+#            "relatedAccountId": 3
+#          }
+#        ]
+#      }
+#    ]
+#  }
+#}
+PUT http://localhost:4111/api/v1/customer/profile
+Content-Type: application/json
+Authorization: Basic emltZW5pOlppbWVuaTMzJA==
+
+{
+  "name": "zimeniUpdated"
+}
+
+
+### Negative: Authorized user with ADMIN role cannot change name in his profile
+# result:
+#{
+#  "timestamp": "2025-07-15T19:03:56.774+00:00",
+#  "status": 403,
+#  "error": "Forbidden",
+#  "path": "/api/v1/customer/profile"
+#}
+PUT http://localhost:4111/api/v1/customer/profile
+Content-Type: application/json
+Authorization: Basic YWRtaW46YWRtaW4=
+
+{
+  "name": "zimeniUpdated"
+}
+
+
+### Negative: Unauthorized user cannot change name in his profile
+# result: Response code: 401
+PUT http://localhost:4111/api/v1/customer/profile
+Content-Type: application/json
+
+{
+  "name": "zimeniUpdated"
+}
+
+
+
