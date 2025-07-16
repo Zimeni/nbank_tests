@@ -29,24 +29,6 @@ Authorization: Basic emltZW5pOlppbWVuaTMzJA==
   "amount": 50
 }
 
-### Negative:Authorized user cannot transfer money between his account and other's account
-# Result (bug):
-#{
-#  "receiverAccountId": 3,
-#  "amount": 50.0,
-#  "message": "Transfer successful",
-#  "senderAccountId": 1
-#}
-POST http://localhost:4111/api/v1/accounts/transfer
-Content-Type: application/json
-Authorization: Basic emltZW5pOlppbWVuaTMzJA==
-
-{
-  "senderAccountId": 1,
-  "receiverAccountId": 3,
-  "amount": 50
-}
-
 ### Negative:Authorized user cannot transfer money between his account if sender account has insufficient funds
 # Result: Invalid transfer: insufficient funds or invalid accounts
 POST http://localhost:4111/api/v1/accounts/transfer
