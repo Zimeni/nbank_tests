@@ -4,11 +4,35 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3726eb59-b080-4ca0-9b14-3b624cb9dd65" name="Changes" comment="" />
+    <list default="true" id="3726eb59-b080-4ca0-9b14-3b624cb9dd65" name="Changes" comment="iteration 2 tests - added 2 negative cases">
+      <change afterPath="$PROJECT_DIR$/src/test/java/iteration2/DepositMoneyTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/iteration2/TransferMoneyTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/iteration2/UserNameChangeTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="iteration2_tests" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
   </component>
   <component name="MavenImportPreferences">
     <option name="importingSettings">
@@ -22,14 +46,115 @@
   <component name="ProjectViewState">
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/zimeni/IdeaProjects/QA/nbank_tests/src/test/java/requests&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/test/java/requests" />
+    </key>
+  </component>
+  <component name="RunManager" selected="JUnit.UserNameChangeTest.userWithRoleAdminCannotChangeName">
+    <configuration name="TransferMoneyTest.unauthorizedUserCannotTransferBetweenAccounts" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="nbank_tests" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="iteration2.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="iteration2" />
+      <option name="MAIN_CLASS_NAME" value="iteration2.TransferMoneyTest" />
+      <option name="METHOD_NAME" value="unauthorizedUserCannotTransferBetweenAccounts" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="UserNameChangeTest.unauthorizedUserCannotChangeName" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="nbank_tests" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="iteration2.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="iteration2" />
+      <option name="MAIN_CLASS_NAME" value="iteration2.UserNameChangeTest" />
+      <option name="METHOD_NAME" value="unauthorizedUserCannotChangeName" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="UserNameChangeTest.userCanChangeNameOnHisProfile" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="nbank_tests" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="iteration2.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="iteration2" />
+      <option name="MAIN_CLASS_NAME" value="iteration2.UserNameChangeTest" />
+      <option name="METHOD_NAME" value="userCanChangeNameOnHisProfile" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="UserNameChangeTest.userCannotChangeNameWithInvalidValues" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="nbank_tests" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="iteration2.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="iteration2" />
+      <option name="MAIN_CLASS_NAME" value="iteration2.UserNameChangeTest" />
+      <option name="METHOD_NAME" value="userCannotChangeNameWithInvalidValues(java.lang.String,java.lang.String)" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="UserNameChangeTest.userWithRoleAdminCannotChangeName" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="nbank_tests" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="iteration2.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="iteration2" />
+      <option name="MAIN_CLASS_NAME" value="iteration2.UserNameChangeTest" />
+      <option name="METHOD_NAME" value="userWithRoleAdminCannotChangeName" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.UserNameChangeTest.userWithRoleAdminCannotChangeName" />
+        <item itemvalue="JUnit.UserNameChangeTest.userCannotChangeNameWithInvalidValues" />
+        <item itemvalue="JUnit.UserNameChangeTest.unauthorizedUserCannotChangeName" />
+        <item itemvalue="JUnit.UserNameChangeTest.userCanChangeNameOnHisProfile" />
+        <item itemvalue="JUnit.TransferMoneyTest.unauthorizedUserCannotTransferBetweenAccounts" />
+      </list>
+    </recent_temporary>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -38,7 +163,31 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1752607761015</updated>
+      <workItem from="1752607762525" duration="8389000" />
     </task>
+    <task id="LOCAL-00001" summary="first commit">
+      <created>1752607844006</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1752607844006</updated>
+    </task>
+    <task id="LOCAL-00002" summary="iteration 2 tests">
+      <created>1752607911028</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1752607911028</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="first commit" />
+    <MESSAGE value="iteration 2 tests" />
+    <option name="LAST_COMMIT_MESSAGE" value="iteration 2 tests" />
   </component>
 </project>
