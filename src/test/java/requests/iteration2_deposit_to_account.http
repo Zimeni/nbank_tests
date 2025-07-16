@@ -36,6 +36,28 @@ Authorization: Basic emltZW5pOlppbWVuaTMzJA==
   "balance": 100
 }
 
+### Negative: Authorized user cannot deposit negative sum to his account
+# Result: Invalid account or amount
+POST http://localhost:4111/api/v1/accounts/deposit
+Content-Type: application/json
+Authorization: Basic emltZW5pOlppbWVuaTMzJA==
+
+{
+  "id": 1,
+  "balance": -10
+}
+
+### Negative: Authorized user cannot deposit zero sum to his account
+# Result: Invalid account or amount
+POST http://localhost:4111/api/v1/accounts/deposit
+Content-Type: application/json
+Authorization: Basic emltZW5pOlppbWVuaTMzJA==
+
+{
+  "id": 1,
+  "balance": 0
+}
+
 ### Negative: Authorized user cannot deposit money to account that is not his
 # Result: Unauthorized access to account
 POST http://localhost:4111/api/v1/accounts/deposit
