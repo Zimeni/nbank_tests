@@ -1,70 +1,46 @@
 package iteration2;
 
-import io.restassured.RestAssured;
-import io.restassured.filter.log.RequestLoggingFilter;
-import io.restassured.filter.log.ResponseLoggingFilter;
-import io.restassured.http.ContentType;
-import org.apache.http.HttpStatus;
-import org.hamcrest.Matchers;
-import org.junit.jupiter.api.BeforeAll;
+import org.example.models.NameChangeRequest;
+import org.example.models.NameChangeResponse;
+import org.example.requests.UserChangeNameRequest;
+import org.example.specs.RequestSpecs;
+import org.example.specs.ResponseSpecs;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
-import java.util.List;
-
-import static io.restassured.RestAssured.given;
-
-public class UserNameChangeTest {
-    private final String USER_ZIMENI_TOKEN = "Basic emltZW5pOlppbWVuaTMzJA==";
-
-    private final String ADMIN_TOKEN = "Basic YWRtaW46YWRtaW4=";
-
-    @BeforeAll
-    public static void setupRestAssured() {
-        RestAssured.filters(
-                List.of(
-                        new RequestLoggingFilter(),
-                        new ResponseLoggingFilter()
-                )
-        );
-    }
-
+public class UserNameChangeTest extends BaseTest {
 
     @Test
     public void userCanChangeNameOnHisProfile() {
-        given()
-                .contentType(ContentType.JSON)
-                .accept(ContentType.JSON)
-                .header("Authorization", USER_ZIMENI_TOKEN)
-                .body("""
-                    {
-                      "name": "zimeni Updated"
-                    }
-                """)
-                .put("http://localhost:4111/api/v1/customer/profile")
-        .then()
-                .assertThat()
-                .statusCode(HttpStatus.SC_OK)
-                .body("customer.id", Matchers.equalTo(1))
-                .body("customer.name", Matchers.equalTo("zimeni Updated"));
+
+        NameChangeRequest request = NameChangeRequest.builder()
+                .name("zimeni Updated")
+                .build();
+
+        var response = new UserChangeNameRequest(
+                RequestSpecs.authorizedUserSpec(Utils.USER_ONE.getUsername(), Utils.USER_ONE.getPassword()),
+                ResponseSpecs.returnsOkAndBody()
+        ).put(request)
+                .extract()
+                .as(NameChangeResponse.class);
+
+
+        soflty.assertThat(response.getCustomer().getId() == 1);
+        soflty.assertThat(response.getCustomer().getName().equals(response.getCustomer().getName()));
 
     }
 
     @Test
     public void unauthorizedUserCannotChangeName() {
-        given()
-                .contentType(ContentType.JSON)
-                .accept(ContentType.JSON)
-                .body("""
-                    {
-                      "name": "zimeni Updated"
-                    }
-                """)
-                .put("http://localhost:4111/api/v1/customer/profile")
-        .then()
-                .assertThat()
-                .statusCode(HttpStatus.SC_UNAUTHORIZED);
+        NameChangeRequest request = NameChangeRequest.builder()
+                .name("zimeni Updated")
+                .build();
+
+        new UserChangeNameRequest(
+                RequestSpecs.unauthorizedSpec(),
+                ResponseSpecs.returnsUnauthorized()
+        ).put(request);;
     }
 
     @CsvSource({
@@ -76,39 +52,27 @@ public class UserNameChangeTest {
     })
     @ParameterizedTest
     public void userCannotChangeNameWithInvalidValues(String name, String error) {
-        String requestBody = String.format("""
-                    {
-                      "name": "%s"
-                    }
-                """, name);
+        NameChangeRequest request = NameChangeRequest.builder()
+                .name(name)
+                .build();
 
-        given()
-                .contentType(ContentType.JSON)
-                .accept(ContentType.JSON)
-                .header("Authorization", USER_ZIMENI_TOKEN)
-                .body(requestBody)
-                .put("http://localhost:4111/api/v1/customer/profile")
-        .then()
-                .assertThat()
-                .statusCode(HttpStatus.SC_BAD_REQUEST)
-                .body(Matchers.equalTo(error));
+        new UserChangeNameRequest(
+                RequestSpecs.unauthorizedSpec(),
+                ResponseSpecs.returnsBadRequestWithError(error)
+        ).put(request);
     }
 
     @Test
     public void userWithRoleAdminCannotChangeName() {
-        given()
-                .contentType(ContentType.JSON)
-                .accept(ContentType.JSON)
-                .header("Authorization", ADMIN_TOKEN)
-                .body("""
-                    {
-                      "name": "zimeni Updated"
-                    }
-                """)
-                .put("http://localhost:4111/api/v1/customer/profile")
-        .then()
-                .assertThat()
-                .statusCode(HttpStatus.SC_FORBIDDEN);
+
+        NameChangeRequest request = NameChangeRequest.builder()
+                .name("zimeni Updated")
+                .build();
+
+        new UserChangeNameRequest(
+                RequestSpecs.authorizedUserSpec(Utils.ADMIN.getUsername(), Utils.ADMIN.getPassword()),
+                ResponseSpecs.returnsForbiddenWithoutError()
+        ).put(request);
     }
 
 }
