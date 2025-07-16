@@ -1,6 +1,5 @@
-package org.example.requests;
+package org.example.requesters;
 
-import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
 import io.restassured.response.ValidatableResponse;
 import io.restassured.specification.RequestSpecification;

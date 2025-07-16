@@ -1,18 +1,15 @@
-package org.example.requests;
+package org.example.requesters;
 
-import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import io.restassured.response.ValidatableResponse;
 import io.restassured.specification.RequestSpecification;
 import io.restassured.specification.ResponseSpecification;
-import org.apache.http.HttpStatus;
 import org.example.models.NameChangeRequest;
-import org.hamcrest.Matchers;
 
 import static io.restassured.RestAssured.given;
 
-public class UserChangeNameRequest extends Request<NameChangeRequest>{
-    public UserChangeNameRequest(RequestSpecification requestSpecification, ResponseSpecification responseSpecification) {
+public class UserChangeNameRequester extends Request<NameChangeRequest>{
+    public UserChangeNameRequester(RequestSpecification requestSpecification, ResponseSpecification responseSpecification) {
         super(requestSpecification, responseSpecification);
     }
 

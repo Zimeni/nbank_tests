@@ -24,6 +24,14 @@ public class ResponseSpecs {
     }
 
 
+    public static ResponseSpecification returnsCreatedAndBody() {
+        return defaultBuilder()
+                .expectStatusCode(HttpStatus.SC_CREATED)
+                .expectBody( Matchers.notNullValue())
+                .build();
+    }
+
+
     public static ResponseSpecification returnsBadRequestWithError(String error) {
         return defaultBuilder()
                 .expectStatusCode(HttpStatus.SC_BAD_REQUEST)

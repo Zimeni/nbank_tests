@@ -1,6 +1,5 @@
-package org.example.requests;
+package org.example.requesters;
 
-import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
 import io.restassured.response.ValidatableResponse;
 import io.restassured.specification.RequestSpecification;
@@ -9,8 +8,8 @@ import org.example.models.BaseModel;
 
 import static io.restassured.RestAssured.given;
 
-public class UserGetAccountRequest extends Request{
-    public UserGetAccountRequest(RequestSpecification requestSpecification, ResponseSpecification responseSpecification) {
+public class UserGetAccountRequester extends Request{
+    public UserGetAccountRequester(RequestSpecification requestSpecification, ResponseSpecification responseSpecification) {
         super(requestSpecification, responseSpecification);
     }
 

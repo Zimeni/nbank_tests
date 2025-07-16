@@ -1,15 +1,25 @@
 package iteration2;
 
+import org.example.models.LoginUserRequest;
 import org.example.models.NameChangeRequest;
 import org.example.models.NameChangeResponse;
-import org.example.requests.UserChangeNameRequest;
+import org.example.requesters.UserChangeNameRequester;
 import org.example.specs.RequestSpecs;
 import org.example.specs.ResponseSpecs;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
 public class UserNameChangeTest extends BaseTest {
+
+    private LoginUserRequest user;
+
+    @BeforeEach
+    public void setupUser() {
+        this.user = Utils.getUser();
+    }
+
 
     @Test
     public void userCanChangeNameOnHisProfile() {
@@ -18,8 +28,8 @@ public class UserNameChangeTest extends BaseTest {
                 .name("zimeni Updated")
                 .build();
 
-        var response = new UserChangeNameRequest(
-                RequestSpecs.authorizedUserSpec(Utils.USER_ONE.getUsername(), Utils.USER_ONE.getPassword()),
+        var response = new UserChangeNameRequester(
+                RequestSpecs.authorizedUserSpec(user.getUsername(), user.getPassword()),
                 ResponseSpecs.returnsOkAndBody()
         ).put(request)
                 .extract()
@@ -37,7 +47,7 @@ public class UserNameChangeTest extends BaseTest {
                 .name("zimeni Updated")
                 .build();
 
-        new UserChangeNameRequest(
+        new UserChangeNameRequester(
                 RequestSpecs.unauthorizedSpec(),
                 ResponseSpecs.returnsUnauthorized()
         ).put(request);;
@@ -56,8 +66,8 @@ public class UserNameChangeTest extends BaseTest {
                 .name(name)
                 .build();
 
-        new UserChangeNameRequest(
-                RequestSpecs.unauthorizedSpec(),
+        new UserChangeNameRequester(
+                RequestSpecs.authorizedUserSpec(user.getUsername(), user.getPassword()),
                 ResponseSpecs.returnsBadRequestWithError(error)
         ).put(request);
     }
@@ -69,7 +79,7 @@ public class UserNameChangeTest extends BaseTest {
                 .name("zimeni Updated")
                 .build();
 
-        new UserChangeNameRequest(
+        new UserChangeNameRequester(
                 RequestSpecs.authorizedUserSpec(Utils.ADMIN.getUsername(), Utils.ADMIN.getPassword()),
                 ResponseSpecs.returnsForbiddenWithoutError()
         ).put(request);

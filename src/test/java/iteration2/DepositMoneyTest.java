@@ -2,35 +2,40 @@ package iteration2;
 
 import org.example.models.DepositMoneyRequest;
 import org.example.models.DepositMoneyResponse;
-import org.example.requests.UserDepositMoneyRequest;
-import org.example.requests.UserGetAccountRequest;
+import org.example.models.LoginUserRequest;
+import org.example.requesters.UserDepositMoneyRequester;
+import org.example.requesters.UserGetAccountRequester;
 import org.example.specs.RequestSpecs;
 import org.example.specs.ResponseSpecs;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
-import static io.restassured.RestAssured.given;
-
 public class DepositMoneyTest extends BaseTest{
+
+    private LoginUserRequest user;
+
+    @BeforeEach
+    public void setupUser() {
+        this.user = Utils.getUser();
+    }
+
     @Test
     public void userCanDepositValidSumTest() {
 
-        var getAccountResponse = new UserGetAccountRequest(
-                RequestSpecs.authorizedUserSpec(Utils.USER_ONE.getUsername(),Utils.USER_ONE.getPassword()),
-                ResponseSpecs.returnsOkAndBody()
-        ).get();
+        var account = Utils.getAccount(user);
 
-        Float currentBalance = getAccountResponse.jsonPath().getFloat("find { it.id == 1 }.balance");
+        Float currentBalance = account.getBalance();
         float expectedBalance = currentBalance + 100;
 
         DepositMoneyRequest request = DepositMoneyRequest.builder()
-                .id(1)
+                .id(account.getId())
                 .balance(100F)
                 .build();
 
-        DepositMoneyResponse response = new UserDepositMoneyRequest(
-                    RequestSpecs.authorizedUserSpec(Utils.USER_ONE.getUsername(),Utils.USER_ONE.getPassword()),
+        DepositMoneyResponse response = new UserDepositMoneyRequester(
+                    RequestSpecs.authorizedUserSpec(user.getUsername(),user.getPassword()),
                     ResponseSpecs.returnsOkAndBody()
                 ).post(request)
                 .extract()
@@ -49,13 +54,15 @@ public class DepositMoneyTest extends BaseTest{
     @ParameterizedTest
     public void userCannotDepositInvalidSumTest(Integer accountId, Float balance, String error) {
 
+        Utils.getAccount(user);
+
         DepositMoneyRequest request = DepositMoneyRequest.builder()
                 .id(accountId)
                 .balance(balance)
                 .build();
 
-        new UserDepositMoneyRequest(
-                RequestSpecs.authorizedUserSpec(Utils.USER_ONE.getUsername(), Utils.USER_ONE.getPassword()),
+        new UserDepositMoneyRequester(
+                RequestSpecs.authorizedUserSpec(user.getUsername(), user.getPassword()),
                 ResponseSpecs.returnsBadRequestWithError(error)
         ).post(request);
     }
@@ -63,13 +70,16 @@ public class DepositMoneyTest extends BaseTest{
     @Test
     public void userCannotDepositSumToNotHisAccountTest() {
 
+        var anotherUser = Utils.getUser();
+        var anotherUserAccount = Utils.getAccount(anotherUser);
+
         DepositMoneyRequest request = DepositMoneyRequest.builder()
-                .id(3)
+                .id(anotherUserAccount.getId())
                 .balance(100)
                 .build();
 
-        new UserDepositMoneyRequest(
-                RequestSpecs.authorizedUserSpec(Utils.USER_ONE.getUsername(), Utils.USER_ONE.getPassword()),
+        new UserDepositMoneyRequester(
+                RequestSpecs.authorizedUserSpec(user.getUsername(), user.getPassword()),
                 ResponseSpecs.returnsForbiddenWithError("Unauthorized access to account")
         ).post(request);
 
@@ -78,12 +88,14 @@ public class DepositMoneyTest extends BaseTest{
     @Test
     public void unauthorizedUserCannotDepositTest() {
 
+        var account = Utils.getAccount(user);
+
         DepositMoneyRequest request = DepositMoneyRequest.builder()
-                .id(3)
+                .id(account.getId())
                 .balance(100)
                 .build();
 
-        new UserDepositMoneyRequest(
+        new UserDepositMoneyRequester(
                 RequestSpecs.unauthorizedSpec(),
                 ResponseSpecs.returnsUnauthorized()
         ).post(request);

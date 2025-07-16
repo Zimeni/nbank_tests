@@ -5,12 +5,15 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class TransferMoneyRequest extends BaseModel {
-    private int senderAccountId;
-    private int receiverAccountId;
-    private float amount;
+public class AccountReponse {
+    private int id;
+    private String accountNumber;
+    private float balance;
+    private List<Transaction> transactions;
 }

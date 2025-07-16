@@ -6,17 +6,13 @@ import io.restassured.filter.log.ResponseLoggingFilter;
 import io.restassured.http.ContentType;
 import io.restassured.specification.RequestSpecification;
 import org.example.models.LoginUserRequest;
-import org.example.requests.UserLoginRequest;
+import org.example.requesters.UserLoginRequester;
 
 import java.util.List;
 
 public class RequestSpecs {
 
     private RequestSpecs() {}
-
-    private static final String ADMIN_TOKEN = "Basic YWRtaW46YWRtaW4=";
-    private static final String USER_ZIMENI_TOKEN = "Basic emltZW5pOlppbWVuaTMzJA==";
-    private static final String USER_NOT_ZIMENI_TOKEN = "Basic bm90X3ppbWVuaTpaaW1lbmkzMyQ=";
 
     private static RequestSpecBuilder defaultRequestBuilder() {
         return new RequestSpecBuilder()
@@ -34,12 +30,6 @@ public class RequestSpecs {
         return defaultRequestBuilder()
                 .build();
     }
-
-    public static RequestSpecification adminSpec() {
-        return defaultRequestBuilder()
-                .addHeader("Authorization", ADMIN_TOKEN)
-                .build();
-    }
     public static RequestSpecification authorizedUserSpec(String username, String password) {
 
         return defaultRequestBuilder()
@@ -53,7 +43,7 @@ public class RequestSpecs {
                 .password(password)
                 .build();
 
-        var authToken = new UserLoginRequest(
+        var authToken = new UserLoginRequester(
                 RequestSpecs.unauthorizedSpec(),
                 ResponseSpecs.returnsOkAndBody()
         ).post(userLoginRequest)

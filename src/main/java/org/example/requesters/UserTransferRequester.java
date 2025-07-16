@@ -1,18 +1,15 @@
-package org.example.requests;
+package org.example.requesters;
 
-import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import io.restassured.response.ValidatableResponse;
 import io.restassured.specification.RequestSpecification;
 import io.restassured.specification.ResponseSpecification;
-import org.apache.http.HttpStatus;
 import org.example.models.TransferMoneyRequest;
-import org.hamcrest.Matchers;
 
 import static io.restassured.RestAssured.given;
 
-public class UserTransferRequest extends Request<TransferMoneyRequest> {
-    public UserTransferRequest(RequestSpecification requestSpecification, ResponseSpecification responseSpecification) {
+public class UserTransferRequester extends Request<TransferMoneyRequest> {
+    public UserTransferRequester(RequestSpecification requestSpecification, ResponseSpecification responseSpecification) {
         super(requestSpecification, responseSpecification);
     }
 
