@@ -1,9 +1,13 @@
 package iteration2;
 
-import org.example.models.LoginUserRequest;
+import org.example.configs.Config;
+import org.example.models.CreateUserResponse;
 import org.example.models.NameChangeRequest;
 import org.example.models.NameChangeResponse;
-import org.example.requesters.UserChangeNameRequester;
+import org.example.requesters.skeleton.Endpoint;
+import org.example.requesters.skeleton.requests.CrudRequester;
+import org.example.requesters.skeleton.requests.ValidatedRequester;
+import org.example.requesters.steps.AdminSteps;
 import org.example.specs.RequestSpecs;
 import org.example.specs.ResponseSpecs;
 import org.junit.jupiter.api.BeforeEach;
@@ -13,11 +17,11 @@ import org.junit.jupiter.params.provider.CsvSource;
 
 public class UserNameChangeTest extends BaseTest {
 
-    private LoginUserRequest user;
+    private CreateUserResponse user;
 
     @BeforeEach
     public void setupUser() {
-        this.user = Utils.getUser();
+        this.user = AdminSteps.createUser();
     }
 
 
@@ -28,15 +32,14 @@ public class UserNameChangeTest extends BaseTest {
                 .name("zimeni Updated")
                 .build();
 
-        var response = new UserChangeNameRequester(
+        var response = new ValidatedRequester<NameChangeResponse>(
                 RequestSpecs.authorizedUserSpec(user.getUsername(), user.getPassword()),
+                Endpoint.PROFILE,
                 ResponseSpecs.returnsOkAndBody()
-        ).put(request)
-                .extract()
-                .as(NameChangeResponse.class);
+        ).update(null, request);
 
 
-        soflty.assertThat(response.getCustomer().getId() == 1);
+        soflty.assertThat(response.getCustomer().getId() == user.getId());
         soflty.assertThat(response.getCustomer().getName().equals(response.getCustomer().getName()));
 
     }
@@ -47,10 +50,11 @@ public class UserNameChangeTest extends BaseTest {
                 .name("zimeni Updated")
                 .build();
 
-        new UserChangeNameRequester(
+        new CrudRequester(
                 RequestSpecs.unauthorizedSpec(),
+                Endpoint.PROFILE,
                 ResponseSpecs.returnsUnauthorized()
-        ).put(request);;
+        ).update(null, request);
     }
 
     @CsvSource({
@@ -66,10 +70,11 @@ public class UserNameChangeTest extends BaseTest {
                 .name(name)
                 .build();
 
-        new UserChangeNameRequester(
+        new CrudRequester(
                 RequestSpecs.authorizedUserSpec(user.getUsername(), user.getPassword()),
+                Endpoint.PROFILE,
                 ResponseSpecs.returnsBadRequestWithError(error)
-        ).put(request);
+        ).update(null, request);
     }
 
     @Test
@@ -79,10 +84,11 @@ public class UserNameChangeTest extends BaseTest {
                 .name("zimeni Updated")
                 .build();
 
-        new UserChangeNameRequester(
-                RequestSpecs.authorizedUserSpec(Utils.ADMIN.getUsername(), Utils.ADMIN.getPassword()),
+        new CrudRequester(
+                RequestSpecs.authorizedUserSpec(Config.getProperty("adminLogin"), Config.getProperty("adminPassword")),
+                Endpoint.PROFILE,
                 ResponseSpecs.returnsForbiddenWithoutError()
-        ).put(request);
+        ).update(null, request);
     }
 
 }

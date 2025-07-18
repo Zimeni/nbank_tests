@@ -1,8 +1,13 @@
 package iteration2;
 
 import org.example.models.*;
-import org.example.requesters.UserDepositMoneyRequester;
-import org.example.requesters.UserTransferRequester;
+import org.example.models.comparison.ModelAssertions;
+import org.example.models.enums.ResponseMessage;
+import org.example.requesters.skeleton.Endpoint;
+import org.example.requesters.skeleton.requests.CrudRequester;
+import org.example.requesters.skeleton.requests.ValidatedRequester;
+import org.example.requesters.steps.AdminSteps;
+import org.example.requesters.steps.UserSteps;
 import org.example.specs.RequestSpecs;
 import org.example.specs.ResponseSpecs;
 import org.junit.jupiter.api.BeforeEach;
@@ -10,34 +15,23 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
-import static io.restassured.RestAssured.given;
 
 public class TransferMoneyTest extends BaseTest {
 
-    private LoginUserRequest user;
+    private CreateUserResponse user;
 
     @BeforeEach
     public void setupUser() {
-        this.user = Utils.getUser();
+        this.user = AdminSteps.createUser();
     }
 
     @Test
     public void userCanTransferValidSumBetweenHisAccount() {
 
-        var accountOne = Utils.getAccount(user);
-        var accountTwo = Utils.getAccount(user);
+        var accountOne = UserSteps.createAccount(user);
+        var accountTwo = UserSteps.createAccount(user);
 
-        DepositMoneyRequest depositMoneyRequest = DepositMoneyRequest.builder()
-                .id(accountOne.getId())
-                .balance(100F)
-                .build();
-
-        new UserDepositMoneyRequester(
-                RequestSpecs.authorizedUserSpec(user.getUsername(),user.getPassword()),
-                ResponseSpecs.returnsOkAndBody()
-        ).post(depositMoneyRequest)
-                .extract()
-                .as(DepositMoneyResponse.class);
+        UserSteps.depositMoney(accountOne, user);
 
         TransferMoneyRequest request = TransferMoneyRequest.builder()
                 .senderAccountId(accountOne.getId())
@@ -45,40 +39,24 @@ public class TransferMoneyTest extends BaseTest {
                 .amount(50)
                 .build();
 
-        var response = new UserTransferRequester(
+        var response = new ValidatedRequester<TransferMoneyResponse>(
                 RequestSpecs.authorizedUserSpec(user.getUsername(), user.getPassword()),
+                Endpoint.TRANSFER,
                 ResponseSpecs.returnsOkAndBody()
-        ).post(request)
-                .extract()
-                .as(TransferMoneyResponse.class);
+        ).post(request);
 
-        String error = "Transfer successful";
-
-        soflty.assertThat(request.getReceiverAccountId() == response.getReceiverAccountId());
-        soflty.assertThat(request.getSenderAccountId() == response.getSenderAccountId());
-        soflty.assertThat(request.getAmount()).isEqualTo(response.getAmount());
-        soflty.assertThat(error.equals(response.getMessage()));
+        ModelAssertions.assertThatModels(request, response).match();
 
     }
 
     @Test
     public void userCanTransferValidSumBetweenHisAndNotHisAccount() {
 
-        var accountOne = Utils.getAccount(user);
-        var anotherUser = Utils.getUser();
-        var anotherUserAccount = Utils.getAccount(anotherUser);
+        var accountOne = UserSteps.createAccount(user);
+        var anotherUser = AdminSteps.createUser();
+        var anotherUserAccount = UserSteps.createAccount(anotherUser);
 
-        DepositMoneyRequest depositMoneyRequest = DepositMoneyRequest.builder()
-                .id(accountOne.getId())
-                .balance(100F)
-                .build();
-
-        new UserDepositMoneyRequester(
-                RequestSpecs.authorizedUserSpec(user.getUsername(),user.getPassword()),
-                ResponseSpecs.returnsOkAndBody()
-        ).post(depositMoneyRequest)
-                .extract()
-                .as(DepositMoneyResponse.class);
+        UserSteps.depositMoney(accountOne, user);
 
         TransferMoneyRequest request = TransferMoneyRequest.builder()
                 .senderAccountId(accountOne.getId())
@@ -86,19 +64,13 @@ public class TransferMoneyTest extends BaseTest {
                 .amount(50)
                 .build();
 
-        var response = new UserTransferRequester(
+        var response = new ValidatedRequester<TransferMoneyResponse>(
                 RequestSpecs.authorizedUserSpec(user.getUsername(), user.getPassword()),
+                Endpoint.TRANSFER,
                 ResponseSpecs.returnsOkAndBody()
-        ).post(request)
-                .extract()
-                .as(TransferMoneyResponse.class);
+        ).post(request);
 
-        String error = "Transfer successful";
-
-        soflty.assertThat(request.getReceiverAccountId() == response.getReceiverAccountId());
-        soflty.assertThat(request.getSenderAccountId() == response.getSenderAccountId());
-        soflty.assertThat(request.getAmount()).isEqualTo(response.getAmount());
-        soflty.assertThat(error.equals(response.getMessage()));
+        ModelAssertions.assertThatModels(request, response).match();
     }
 
 
@@ -109,20 +81,10 @@ public class TransferMoneyTest extends BaseTest {
     @ParameterizedTest
     public void userCannotTransferInvalidSumBetweenAccounts(Float sum, String error) {
 
-        var accountOne = Utils.getAccount(user);
-        var accountTwo = Utils.getAccount(user);
+        var accountOne = UserSteps.createAccount(user);
+        var accountTwo = UserSteps.createAccount(user);
 
-        DepositMoneyRequest depositMoneyRequest = DepositMoneyRequest.builder()
-                .id(accountOne.getId())
-                .balance(100F)
-                .build();
-
-        new UserDepositMoneyRequester(
-                RequestSpecs.authorizedUserSpec(user.getUsername(),user.getPassword()),
-                ResponseSpecs.returnsOkAndBody()
-        ).post(depositMoneyRequest)
-                .extract()
-                .as(DepositMoneyResponse.class);
+        UserSteps.depositMoney(accountOne, user);
 
         TransferMoneyRequest request = TransferMoneyRequest.builder()
                 .senderAccountId(accountOne.getId())
@@ -130,8 +92,9 @@ public class TransferMoneyTest extends BaseTest {
                 .amount(sum)
                 .build();
 
-        new UserTransferRequester(
+        new CrudRequester(
                 RequestSpecs.authorizedUserSpec(user.getUsername(), user.getPassword()),
+                Endpoint.TRANSFER,
                 ResponseSpecs.returnsBadRequestWithError(error)
         ).post(request);
     }
@@ -140,8 +103,8 @@ public class TransferMoneyTest extends BaseTest {
     @Test
     public void userCannotTransferSumFromInsufficientBalance() {
 
-        var accountOne = Utils.getAccount(user);
-        var accountTwo = Utils.getAccount(user);
+        var accountOne = UserSteps.createAccount(user);
+        var accountTwo = UserSteps.createAccount(user);
 
         TransferMoneyRequest request = TransferMoneyRequest.builder()
                 .senderAccountId(accountOne.getId())
@@ -149,15 +112,16 @@ public class TransferMoneyTest extends BaseTest {
                 .amount(10000)
                 .build();
 
-        new UserTransferRequester(
+        new CrudRequester(
                 RequestSpecs.authorizedUserSpec(user.getUsername(), user.getPassword()),
-                ResponseSpecs.returnsBadRequestWithError("Invalid transfer: insufficient funds or invalid accounts")
+                Endpoint.TRANSFER,
+                ResponseSpecs.returnsBadRequestWithError(ResponseMessage.TRANSFER_INVALID_INSUFFICIENT_FUNDS_INVALID_ACCOUNT.getMessage())
         ).post(request);
     }
 
     @Test
     public void userCannotTransferToNonexistingAccount() {
-        var accountOne = Utils.getAccount(user);
+        var accountOne = UserSteps.createAccount(user);
 
         TransferMoneyRequest request = TransferMoneyRequest.builder()
                 .senderAccountId(accountOne.getId())
@@ -165,19 +129,16 @@ public class TransferMoneyTest extends BaseTest {
                 .amount(10000)
                 .build();
 
-        new UserTransferRequester(
+        new CrudRequester(
                 RequestSpecs.authorizedUserSpec(user.getUsername(), user.getPassword()),
-                ResponseSpecs.returnsBadRequestWithError("Invalid transfer: insufficient funds or invalid accounts")
+                Endpoint.TRANSFER,
+                ResponseSpecs.returnsBadRequestWithError(ResponseMessage.TRANSFER_INVALID_INSUFFICIENT_FUNDS_INVALID_ACCOUNT.getMessage())
         ).post(request);
     }
 
     @Test
     public void unauthorizedUserCannotTransferBetweenAccounts() {
-
-
-        var accountOne = Utils.getAccount(user);
-        var accountTwo = Utils.getAccount(user);
-
+        var accountOne = UserSteps.createAccount(user);
 
         TransferMoneyRequest request = TransferMoneyRequest.builder()
                 .senderAccountId(accountOne.getId())
@@ -185,8 +146,9 @@ public class TransferMoneyTest extends BaseTest {
                 .amount(10)
                 .build();
 
-        new UserTransferRequester(
+        new CrudRequester(
                 RequestSpecs.unauthorizedSpec(),
+                Endpoint.TRANSFER,
                 ResponseSpecs.returnsUnauthorized()
         ).post(request);
     }
