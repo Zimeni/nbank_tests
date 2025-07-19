@@ -28,10 +28,11 @@ public class CrudRequester extends HttpRequest implements CrudEndpointInterface 
     }
 
     @Override
-    public ValidatableResponse get(Long id) {
+    public ValidatableResponse get(Integer id) {
+        String url = (id != null) ? endpoint.getUrl().replace("$id", id.toString()) : endpoint.getUrl();
         return  given()
                 .spec(requestSpecification)
-                .get(endpoint.getUrl())
+                .get(url)
                 .then()
                 .assertThat()
                 .spec(responseSpecification);
@@ -39,7 +40,7 @@ public class CrudRequester extends HttpRequest implements CrudEndpointInterface 
     }
 
     @Override
-    public ValidatableResponse update(Long id, BaseModel requestBody) {
+    public ValidatableResponse update(Integer id, BaseModel requestBody) {
         return given()
                 .spec(requestSpecification)
                 .body(requestBody)
@@ -50,7 +51,7 @@ public class CrudRequester extends HttpRequest implements CrudEndpointInterface 
     }
 
     @Override
-    public ValidatableResponse delete(Long id) {
+    public ValidatableResponse delete(Integer id) {
         return given()
                 .spec(requestSpecification)
                 .put(endpoint.getUrl())

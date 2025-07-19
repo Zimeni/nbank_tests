@@ -4,6 +4,7 @@ import org.example.models.CreateUserResponse;
 import org.example.models.DepositMoneyRequest;
 import org.example.models.DepositMoneyResponse;
 import org.example.models.enums.ResponseMessage;
+import org.example.models.enums.TransactionType;
 import org.example.requesters.skeleton.Endpoint;
 import org.example.requesters.skeleton.requests.CrudRequester;
 import org.example.requesters.skeleton.requests.ValidatedRequester;
@@ -33,19 +34,14 @@ public class DepositMoneyTest extends BaseTest{
         Float currentBalance = account.getBalance();
         float expectedBalance = currentBalance + 100;
 
-        DepositMoneyRequest request = DepositMoneyRequest.builder()
-                .id(account.getId())
-                .balance(100F)
-                .build();
+        float depositAmount = 100.0f;
+        DepositMoneyResponse response = UserSteps.depositMoney(account, user, 100.0f);
 
-        DepositMoneyResponse response = new ValidatedRequester<DepositMoneyResponse>(
-                    RequestSpecs.authorizedUserSpec(user.getUsername(),user.getPassword()),
-                    Endpoint.DEPOSIT,
-                    ResponseSpecs.returnsOkAndBody()
-                ).post(request);
-
-        soflty.assertThat(request.getId() == response.getId());
+        soflty.assertThat(account.getId() == response.getId());
         soflty.assertThat(response.getBalance()).isEqualTo(expectedBalance);
+
+        UserSteps.checkIfTransactionExist(user, account.getId(), account.getId(), TransactionType.DEPOSIT.name(), depositAmount);
+
     }
 
 
@@ -54,40 +50,27 @@ public class DepositMoneyTest extends BaseTest{
             "0, Invalid account or amount"
     })
     @ParameterizedTest
-    public void userCannotDepositInvalidSumTest(Float balance, String error) {
+    public void userCannotDepositInvalidSumTest(Float amount, String error) {
 
         var account = UserSteps.createAccount(user);
 
-        DepositMoneyRequest request = DepositMoneyRequest.builder()
-                .id(account.getId())
-                .balance(balance)
-                .build();
+        UserSteps.depositMoneyWithError(account, user, amount, error);
 
-        new CrudRequester(
-                RequestSpecs.authorizedUserSpec(user.getUsername(), user.getPassword()),
-                Endpoint.DEPOSIT,
-                ResponseSpecs.returnsBadRequestWithError(error)
-        ).post(request);
+        UserSteps.checkIfTransactionDoesntExist(user, account.getId(), account.getId(), TransactionType.DEPOSIT.name(), amount);
     }
 
     @Test
     public void userCannotDepositSumToNotHisAccountTest() {
 
-        UserSteps.createAccount(user);
+        var currentUserAccount = UserSteps.createAccount(user);
 
         var anotherUser = AdminSteps.createUser();
         var anotherUserAccount = UserSteps.createAccount(anotherUser);
 
-        DepositMoneyRequest request = DepositMoneyRequest.builder()
-                .id(anotherUserAccount.getId())
-                .balance(100)
-                .build();
+        float amount = 100.0f;
+        UserSteps.depositToForeignAccout(anotherUserAccount, user, amount);
 
-        new CrudRequester(
-                RequestSpecs.authorizedUserSpec(user.getUsername(), user.getPassword()),
-                Endpoint.DEPOSIT,
-                ResponseSpecs.returnsForbiddenWithError(ResponseMessage.ACCOUNT_UNAUTHORIZED_ACCESS.getMessage())
-        ).post(request);
+        UserSteps.checkIfTransactionDoesntExist(user, currentUserAccount.getId(), anotherUserAccount.getId(), TransactionType.DEPOSIT.name(), amount);
 
     }
 
@@ -95,16 +78,9 @@ public class DepositMoneyTest extends BaseTest{
     public void unauthorizedUserCannotDepositTest() {
 
         var account = UserSteps.createAccount(user);
+        float amount = 100.0f;
+        UserSteps.depositAsUnauthorized(account, amount);
 
-        DepositMoneyRequest request = DepositMoneyRequest.builder()
-                .id(account.getId())
-                .balance(100)
-                .build();
-
-        new CrudRequester(
-                RequestSpecs.unauthorizedSpec(),
-                Endpoint.DEPOSIT,
-                ResponseSpecs.returnsUnauthorized()
-        ).post(request);
+        UserSteps.checkIfTransactionDoesntExist(user, account.getId(), account.getId(), TransactionType.DEPOSIT.name(), amount);
     }
 }

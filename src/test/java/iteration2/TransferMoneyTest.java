@@ -3,6 +3,7 @@ package iteration2;
 import org.example.models.*;
 import org.example.models.comparison.ModelAssertions;
 import org.example.models.enums.ResponseMessage;
+import org.example.models.enums.TransactionType;
 import org.example.requesters.skeleton.Endpoint;
 import org.example.requesters.skeleton.requests.CrudRequester;
 import org.example.requesters.skeleton.requests.ValidatedRequester;
@@ -31,12 +32,13 @@ public class TransferMoneyTest extends BaseTest {
         var accountOne = UserSteps.createAccount(user);
         var accountTwo = UserSteps.createAccount(user);
 
-        UserSteps.depositMoney(accountOne, user);
+        UserSteps.depositMoney(accountOne, user, 100.0f);
 
+        float transferAmount = 50.0f;
         TransferMoneyRequest request = TransferMoneyRequest.builder()
                 .senderAccountId(accountOne.getId())
                 .receiverAccountId(accountTwo.getId())
-                .amount(50)
+                .amount(transferAmount)
                 .build();
 
         var response = new ValidatedRequester<TransferMoneyResponse>(
@@ -46,6 +48,8 @@ public class TransferMoneyTest extends BaseTest {
         ).post(request);
 
         ModelAssertions.assertThatModels(request, response).match();
+
+        UserSteps.checkIfTransactionExist(user, accountOne.getId(), accountTwo.getId(), TransactionType.TRANSFER_OUT.name(), transferAmount);
 
     }
 
@@ -56,12 +60,13 @@ public class TransferMoneyTest extends BaseTest {
         var anotherUser = AdminSteps.createUser();
         var anotherUserAccount = UserSteps.createAccount(anotherUser);
 
-        UserSteps.depositMoney(accountOne, user);
+        float amount = 100.0f;
+        UserSteps.depositMoney(accountOne, user, amount);
 
         TransferMoneyRequest request = TransferMoneyRequest.builder()
                 .senderAccountId(accountOne.getId())
                 .receiverAccountId(anotherUserAccount.getId())
-                .amount(50)
+                .amount(amount)
                 .build();
 
         var response = new ValidatedRequester<TransferMoneyResponse>(
@@ -71,6 +76,8 @@ public class TransferMoneyTest extends BaseTest {
         ).post(request);
 
         ModelAssertions.assertThatModels(request, response).match();
+
+        UserSteps.checkIfTransactionExist(user, accountOne.getId(), anotherUserAccount.getId(), TransactionType.TRANSFER_OUT.name(), amount);
     }
 
 
@@ -84,19 +91,12 @@ public class TransferMoneyTest extends BaseTest {
         var accountOne = UserSteps.createAccount(user);
         var accountTwo = UserSteps.createAccount(user);
 
-        UserSteps.depositMoney(accountOne, user);
+        float amount = 100.0f;
+        UserSteps.depositMoney(accountOne, user, 100.0f);
 
-        TransferMoneyRequest request = TransferMoneyRequest.builder()
-                .senderAccountId(accountOne.getId())
-                .receiverAccountId(accountTwo.getId())
-                .amount(sum)
-                .build();
+        UserSteps.transferMoneyWithBadRequest(user, accountOne.getId(), accountTwo.getId(), sum, error);
 
-        new CrudRequester(
-                RequestSpecs.authorizedUserSpec(user.getUsername(), user.getPassword()),
-                Endpoint.TRANSFER,
-                ResponseSpecs.returnsBadRequestWithError(error)
-        ).post(request);
+        UserSteps.checkIfTransactionDoesntExist(user, accountOne.getId(), accountTwo.getId(), TransactionType.TRANSFER_OUT.name(), sum);
     }
 
 
@@ -106,44 +106,33 @@ public class TransferMoneyTest extends BaseTest {
         var accountOne = UserSteps.createAccount(user);
         var accountTwo = UserSteps.createAccount(user);
 
-        TransferMoneyRequest request = TransferMoneyRequest.builder()
-                .senderAccountId(accountOne.getId())
-                .receiverAccountId(accountTwo.getId())
-                .amount(10000)
-                .build();
+        float amount = 10000.0f;
 
-        new CrudRequester(
-                RequestSpecs.authorizedUserSpec(user.getUsername(), user.getPassword()),
-                Endpoint.TRANSFER,
-                ResponseSpecs.returnsBadRequestWithError(ResponseMessage.TRANSFER_INVALID_INSUFFICIENT_FUNDS_INVALID_ACCOUNT.getMessage())
-        ).post(request);
+        UserSteps.transferMoneyWithBadRequest(user, accountOne.getId(), accountTwo.getId(), amount, ResponseMessage.TRANSFER_INVALID_INSUFFICIENT_FUNDS_INVALID_ACCOUNT.getMessage());
+
+        UserSteps.checkIfTransactionDoesntExist(user, accountOne.getId(), accountTwo.getId(), TransactionType.TRANSFER_OUT.name(), amount);
     }
 
     @Test
     public void userCannotTransferToNonexistingAccount() {
         var accountOne = UserSteps.createAccount(user);
 
-        TransferMoneyRequest request = TransferMoneyRequest.builder()
-                .senderAccountId(accountOne.getId())
-                .receiverAccountId(Integer.MAX_VALUE)
-                .amount(10000)
-                .build();
+        float amount = 10000.0f;
 
-        new CrudRequester(
-                RequestSpecs.authorizedUserSpec(user.getUsername(), user.getPassword()),
-                Endpoint.TRANSFER,
-                ResponseSpecs.returnsBadRequestWithError(ResponseMessage.TRANSFER_INVALID_INSUFFICIENT_FUNDS_INVALID_ACCOUNT.getMessage())
-        ).post(request);
+        UserSteps.transferMoneyWithBadRequest(user, accountOne.getId(), Integer.MAX_VALUE, amount, ResponseMessage.TRANSFER_INVALID_INSUFFICIENT_FUNDS_INVALID_ACCOUNT.getMessage());
+
+        UserSteps.checkIfTransactionDoesntExist(user, accountOne.getId(), accountOne.getId(), TransactionType.TRANSFER_OUT.name(), amount);
     }
 
     @Test
     public void unauthorizedUserCannotTransferBetweenAccounts() {
         var accountOne = UserSteps.createAccount(user);
 
+        float amount = 10.0f;
         TransferMoneyRequest request = TransferMoneyRequest.builder()
                 .senderAccountId(accountOne.getId())
                 .receiverAccountId(accountOne.getId())
-                .amount(10)
+                .amount(amount)
                 .build();
 
         new CrudRequester(
@@ -151,6 +140,8 @@ public class TransferMoneyTest extends BaseTest {
                 Endpoint.TRANSFER,
                 ResponseSpecs.returnsUnauthorized()
         ).post(request);
+
+        UserSteps.checkIfTransactionDoesntExist(user, accountOne.getId(), accountOne.getId(), TransactionType.TRANSFER_OUT.name(), amount);
     }
 
 

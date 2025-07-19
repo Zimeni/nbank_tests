@@ -27,12 +27,20 @@ public class ValidatedRequester<M extends BaseModel> extends HttpRequest impleme
     }
 
     @Override
-    public Object get(Long id) {
-        return null;
+    public M get(Integer id) {
+        String url = (id != null) ? endpoint.getUrl().replace("$id", id.toString()) : endpoint.getUrl();
+        return  (M) given()
+                .spec(requestSpecification)
+                .get(url)
+                .then()
+                .assertThat()
+                .spec(responseSpecification)
+                .extract()
+                .as(endpoint.getResponseModel());
     }
 
     @Override
-    public M update(Long id, BaseModel requestBody) {
+    public M update(Integer id, BaseModel requestBody) {
         return (M) given()
                 .spec(requestSpecification)
                 .body(requestBody)
@@ -45,7 +53,7 @@ public class ValidatedRequester<M extends BaseModel> extends HttpRequest impleme
     }
 
     @Override
-    public Object delete(Long id) {
+    public Object delete(Integer id) {
         return null;
     }
 }

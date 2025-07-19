@@ -5,41 +5,22 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3726eb59-b080-4ca0-9b14-3b624cb9dd65" name="Changes" comment="middle API test iteration 2 - added creation of user and account">
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/configs/Config.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/generators/GeneratingRule.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/generators/RandomModelGenerator.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/models/comparison/ModelAssertions.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/models/comparison/ModelComparator.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/models/comparison/ModelComparisonConfigLoader.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/models/enums/ResponseMessage.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/requesters/skeleton/Endpoint.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/requesters/skeleton/HttpRequest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/requesters/skeleton/interfaces/CrudEndpointInterface.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/requesters/skeleton/requests/CrudRequester.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/requesters/skeleton/requests/ValidatedRequester.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/requesters/steps/AdminSteps.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/requesters/steps/UserSteps.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/config.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/model-comparison.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/models/GetProfileResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/models/enums/TransactionType.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/models/AccountReponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/models/AccountReponse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/models/CreateUserRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/models/CreateUserRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/models/DepositMoneyResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/models/DepositMoneyResponse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/models/NameChangeResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/models/NameChangeResponse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/models/TransferMoneyResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/models/TransferMoneyResponse.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/requesters/AdminCreateUserRequester.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/requesters/UserChangeNameRequester.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/requesters/UserCreateAccountRequester.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/requesters/UserDepositMoneyRequester.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/requesters/UserGetAccountRequester.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/requesters/UserLoginRequester.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/requesters/UserTransferRequester.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/specs/RequestSpecs.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/specs/RequestSpecs.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/models/AccountReponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/models/CreateAccountReponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/models/CreateUserResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/models/CreateUserResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/models/Customer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/models/Customer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/models/DepositMoneyRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/models/DepositMoneyRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/requesters/skeleton/Endpoint.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/requesters/skeleton/Endpoint.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/requesters/skeleton/interfaces/CrudEndpointInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/requesters/skeleton/interfaces/CrudEndpointInterface.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/requesters/skeleton/requests/CrudRequester.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/requesters/skeleton/requests/CrudRequester.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/requesters/skeleton/requests/ValidatedRequester.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/requesters/skeleton/requests/ValidatedRequester.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/requesters/steps/UserSteps.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/requesters/steps/UserSteps.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/iteration2/DepositMoneyTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/iteration2/DepositMoneyTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/iteration2/TransferMoneyTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/iteration2/TransferMoneyTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/iteration2/UserNameChangeTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/iteration2/UserNameChangeTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/iteration2/Utils.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -50,9 +31,9 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Interface" />
-        <option value="Enum" />
         <option value="AnnotationType" />
         <option value="Class" />
+        <option value="Enum" />
       </list>
     </option>
   </component>
@@ -100,7 +81,7 @@
       <recent name="org.example.models" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.TransferMoneyTest.userCanTransferValidSumBetweenHisAndNotHisAccount">
+  <component name="RunManager" selected="JUnit.UserNameChangeTest">
     <configuration name="DepositMoneyTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="nbank_tests" />
       <extension name="coverage">
@@ -132,7 +113,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="TransferMoneyTest.userCanTransferValidSumBetweenHisAccount" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="TransferMoneyTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="nbank_tests" />
       <extension name="coverage">
         <pattern>
@@ -142,13 +123,12 @@
       </extension>
       <option name="PACKAGE_NAME" value="iteration2" />
       <option name="MAIN_CLASS_NAME" value="iteration2.TransferMoneyTest" />
-      <option name="METHOD_NAME" value="userCanTransferValidSumBetweenHisAccount" />
-      <option name="TEST_OBJECT" value="method" />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="TransferMoneyTest.userCanTransferValidSumBetweenHisAndNotHisAccount" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="TransferMoneyTest.userCannotTransferInvalidSumBetweenAccounts" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="nbank_tests" />
       <extension name="coverage">
         <pattern>
@@ -158,13 +138,13 @@
       </extension>
       <option name="PACKAGE_NAME" value="iteration2" />
       <option name="MAIN_CLASS_NAME" value="iteration2.TransferMoneyTest" />
-      <option name="METHOD_NAME" value="userCanTransferValidSumBetweenHisAndNotHisAccount" />
+      <option name="METHOD_NAME" value="userCannotTransferInvalidSumBetweenAccounts(java.lang.Float,java.lang.String)" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="UserNameChangeTest.userCanChangeNameOnHisProfile" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="UserNameChangeTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="nbank_tests" />
       <extension name="coverage">
         <pattern>
@@ -174,19 +154,18 @@
       </extension>
       <option name="PACKAGE_NAME" value="iteration2" />
       <option name="MAIN_CLASS_NAME" value="iteration2.UserNameChangeTest" />
-      <option name="METHOD_NAME" value="userCanChangeNameOnHisProfile" />
-      <option name="TEST_OBJECT" value="method" />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.TransferMoneyTest.userCanTransferValidSumBetweenHisAndNotHisAccount" />
-        <item itemvalue="JUnit.DepositMoneyTest.userCannotDepositSumToNotHisAccountTest" />
-        <item itemvalue="JUnit.TransferMoneyTest.userCanTransferValidSumBetweenHisAccount" />
+        <item itemvalue="JUnit.UserNameChangeTest" />
+        <item itemvalue="JUnit.TransferMoneyTest" />
+        <item itemvalue="JUnit.TransferMoneyTest.userCannotTransferInvalidSumBetweenAccounts" />
         <item itemvalue="JUnit.DepositMoneyTest" />
-        <item itemvalue="JUnit.UserNameChangeTest.userCanChangeNameOnHisProfile" />
+        <item itemvalue="JUnit.DepositMoneyTest.userCannotDepositSumToNotHisAccountTest" />
       </list>
     </recent_temporary>
   </component>
@@ -246,12 +225,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/java/iteration2/DepositMoneyTest.java</url>
-          <line>40</line>
-          <option name="timeStamp" value="3" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/test/java/iteration2/DepositMoneyTest.java</url>
-          <line>46</line>
+          <line>39</line>
           <option name="timeStamp" value="4" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">

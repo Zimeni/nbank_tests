@@ -4,7 +4,7 @@ import org.example.models.BaseModel;
 
 public interface CrudEndpointInterface  {
     Object post(BaseModel requestBody);
-    Object get(Long id);
-    Object update(Long id, BaseModel requestBody);
-    Object delete(Long id);
+    Object get(Integer id);
+    Object update(Integer id, BaseModel requestBody);
+    Object delete(Integer id);
 }

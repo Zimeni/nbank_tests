@@ -18,5 +18,5 @@ public class Customer {
     private String password;
     private String name;
     private String role;
-    private List<AccountReponse> accounts;
+    private List<CreateAccountReponse> accounts;
 }

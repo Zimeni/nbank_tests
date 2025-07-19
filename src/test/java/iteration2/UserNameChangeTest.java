@@ -8,6 +8,7 @@ import org.example.requesters.skeleton.Endpoint;
 import org.example.requesters.skeleton.requests.CrudRequester;
 import org.example.requesters.skeleton.requests.ValidatedRequester;
 import org.example.requesters.steps.AdminSteps;
+import org.example.requesters.steps.UserSteps;
 import org.example.specs.RequestSpecs;
 import org.example.specs.ResponseSpecs;
 import org.junit.jupiter.api.BeforeEach;
@@ -28,33 +29,46 @@ public class UserNameChangeTest extends BaseTest {
     @Test
     public void userCanChangeNameOnHisProfile() {
 
+        var profileBeforeChange = UserSteps.getProfile(user);
+
+        String changedName = "zimeni Updated";
         NameChangeRequest request = NameChangeRequest.builder()
-                .name("zimeni Updated")
+                .name(changedName)
                 .build();
 
         var response = new ValidatedRequester<NameChangeResponse>(
                 RequestSpecs.authorizedUserSpec(user.getUsername(), user.getPassword()),
-                Endpoint.PROFILE,
+                Endpoint.PROFILE_CHANGE,
                 ResponseSpecs.returnsOkAndBody()
         ).update(null, request);
 
 
+        // оставлены soflty асерты, так как пока нет модели запроса для сравнения с моделью ответа
         soflty.assertThat(response.getCustomer().getId() == user.getId());
         soflty.assertThat(response.getCustomer().getName().equals(response.getCustomer().getName()));
+
+
+        UserSteps.checkIfNameEquals(user, profileBeforeChange.getId(), changedName, soflty);
 
     }
 
     @Test
     public void unauthorizedUserCannotChangeName() {
+        var profileBeforeChange = UserSteps.getProfile(user);
+
+        String changedName = "zimeni Updated";
+
         NameChangeRequest request = NameChangeRequest.builder()
-                .name("zimeni Updated")
+                .name(changedName)
                 .build();
 
         new CrudRequester(
                 RequestSpecs.unauthorizedSpec(),
-                Endpoint.PROFILE,
+                Endpoint.PROFILE_CHANGE,
                 ResponseSpecs.returnsUnauthorized()
         ).update(null, request);
+
+        UserSteps.checkNameNotEquals(user, profileBeforeChange.getId(), changedName, soflty);
     }
 
     @CsvSource({
@@ -66,29 +80,37 @@ public class UserNameChangeTest extends BaseTest {
     })
     @ParameterizedTest
     public void userCannotChangeNameWithInvalidValues(String name, String error) {
+        var profileBeforeChange = UserSteps.getProfile(user);
+
         NameChangeRequest request = NameChangeRequest.builder()
                 .name(name)
                 .build();
 
         new CrudRequester(
                 RequestSpecs.authorizedUserSpec(user.getUsername(), user.getPassword()),
-                Endpoint.PROFILE,
+                Endpoint.PROFILE_CHANGE,
                 ResponseSpecs.returnsBadRequestWithError(error)
         ).update(null, request);
+
+        UserSteps.checkNameNotEquals(user, profileBeforeChange.getId(), name, soflty);
     }
 
     @Test
     public void userWithRoleAdminCannotChangeName() {
+        var profileBeforeChange = UserSteps.getProfile(user);
 
+        String changedName = "zimeni Updated";
         NameChangeRequest request = NameChangeRequest.builder()
-                .name("zimeni Updated")
+                .name(changedName)
                 .build();
 
         new CrudRequester(
                 RequestSpecs.authorizedUserSpec(Config.getProperty("adminLogin"), Config.getProperty("adminPassword")),
-                Endpoint.PROFILE,
+                Endpoint.PROFILE_CHANGE,
                 ResponseSpecs.returnsForbiddenWithoutError()
         ).update(null, request);
+
+        UserSteps.checkNameNotEquals(user, profileBeforeChange.getId(), changedName, soflty);
     }
 
 }
