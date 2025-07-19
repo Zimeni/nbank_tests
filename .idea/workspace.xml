@@ -4,11 +4,49 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3726eb59-b080-4ca0-9b14-3b624cb9dd65" name="Changes" comment="" />
+    <list default="true" id="3726eb59-b080-4ca0-9b14-3b624cb9dd65" name="Changes" comment="middle API test iteration 2 - added creation of user and account">
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/models/GetProfileResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/models/enums/TransactionType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/models/AccountReponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/models/CreateAccountReponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/models/CreateUserResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/models/CreateUserResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/models/Customer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/models/Customer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/models/DepositMoneyRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/models/DepositMoneyRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/requesters/skeleton/Endpoint.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/requesters/skeleton/Endpoint.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/requesters/skeleton/interfaces/CrudEndpointInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/requesters/skeleton/interfaces/CrudEndpointInterface.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/requesters/skeleton/requests/CrudRequester.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/requesters/skeleton/requests/CrudRequester.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/requesters/skeleton/requests/ValidatedRequester.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/requesters/skeleton/requests/ValidatedRequester.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/requesters/steps/UserSteps.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/requesters/steps/UserSteps.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/iteration2/DepositMoneyTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/iteration2/DepositMoneyTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/iteration2/TransferMoneyTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/iteration2/TransferMoneyTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/iteration2/UserNameChangeTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/iteration2/UserNameChangeTest.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Interface" />
+        <option value="AnnotationType" />
+        <option value="Class" />
+        <option value="Enum" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="feature/middle_api_test_iteration2" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
   </component>
   <component name="MavenImportPreferences">
     <option name="importingSettings">
@@ -22,14 +60,115 @@
   <component name="ProjectViewState">
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/zimeni/IdeaProjects/QA/nbank_tests/src/test/java/requests&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/test/java/requests" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="org.example.models" />
+    </key>
+  </component>
+  <component name="RunManager" selected="JUnit.UserNameChangeTest">
+    <configuration name="DepositMoneyTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="nbank_tests" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="iteration2.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="iteration2" />
+      <option name="MAIN_CLASS_NAME" value="iteration2.DepositMoneyTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="DepositMoneyTest.userCannotDepositSumToNotHisAccountTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="nbank_tests" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="iteration2.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="iteration2" />
+      <option name="MAIN_CLASS_NAME" value="iteration2.DepositMoneyTest" />
+      <option name="METHOD_NAME" value="userCannotDepositSumToNotHisAccountTest" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TransferMoneyTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="nbank_tests" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="iteration2.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="iteration2" />
+      <option name="MAIN_CLASS_NAME" value="iteration2.TransferMoneyTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TransferMoneyTest.userCannotTransferInvalidSumBetweenAccounts" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="nbank_tests" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="iteration2.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="iteration2" />
+      <option name="MAIN_CLASS_NAME" value="iteration2.TransferMoneyTest" />
+      <option name="METHOD_NAME" value="userCannotTransferInvalidSumBetweenAccounts(java.lang.Float,java.lang.String)" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="UserNameChangeTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="nbank_tests" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="iteration2.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="iteration2" />
+      <option name="MAIN_CLASS_NAME" value="iteration2.UserNameChangeTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.UserNameChangeTest" />
+        <item itemvalue="JUnit.TransferMoneyTest" />
+        <item itemvalue="JUnit.TransferMoneyTest.userCannotTransferInvalidSumBetweenAccounts" />
+        <item itemvalue="JUnit.DepositMoneyTest" />
+        <item itemvalue="JUnit.DepositMoneyTest.userCannotDepositSumToNotHisAccountTest" />
+      </list>
+    </recent_temporary>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -38,7 +177,73 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1752607761015</updated>
+      <workItem from="1752607762525" duration="8389000" />
     </task>
+    <task id="LOCAL-00001" summary="first commit">
+      <created>1752607844006</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1752607844006</updated>
+    </task>
+    <task id="LOCAL-00002" summary="iteration 2 tests">
+      <created>1752607911028</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1752607911028</updated>
+    </task>
+    <task id="LOCAL-00003" summary="middle API test iteration 2">
+      <created>1752694136370</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1752694136370</updated>
+    </task>
+    <task id="LOCAL-00004" summary="middle API test iteration 2 - added creation of user and account">
+      <created>1752697733613</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1752697733613</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="first commit" />
+    <MESSAGE value="iteration 2 tests" />
+    <MESSAGE value="middle API test iteration 2" />
+    <MESSAGE value="middle API test iteration 2 - added creation of user and account" />
+    <option name="LAST_COMMIT_MESSAGE" value="middle API test iteration 2 - added creation of user and account" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/iteration2/DepositMoneyTest.java</url>
+          <line>39</line>
+          <option name="timeStamp" value="4" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/org/example/requesters/skeleton/requests/ValidatedRequester.java</url>
+          <line>23</line>
+          <option name="timeStamp" value="7" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/org/example/requesters/skeleton/requests/CrudRequester.java</url>
+          <line>19</line>
+          <option name="timeStamp" value="8" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/org/example/specs/RequestSpecs.java</url>
+          <line>46</line>
+          <option name="timeStamp" value="9" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
