@@ -17,9 +17,6 @@ import static io.restassured.RestAssured.given;
 
 public class TransferMoneyTest {
 
-    private final String USER_ZIMENI_TOKEN = "Basic emltZW5pOlppbWVuaTMzJA==";
-    private final String USER_NOT_ZIMENI_TOKEN = "Basic bm90X3ppbWVuaTpaaW1lbmkzMyQ=";
-
     @BeforeAll
     public static void setupRestAssured() {
         RestAssured.filters(
@@ -36,22 +33,25 @@ public class TransferMoneyTest {
         given()
                 .contentType(ContentType.JSON)
                 .accept(ContentType.JSON)
-                .header("Authorization", USER_ZIMENI_TOKEN)
+                .header("Authorization", Utils.USER_ZIMENI_TOKEN)
                 .body("""
                         {
-                          "senderAccountId": 1,
-                          "receiverAccountId": 2,
-                          "amount": 50
+                          "senderAccountId": 81,
+                          "receiverAccountId": 82,
+                          "amount": 57
                         }
                         """)
                 .post("http://localhost:4111/api/v1/accounts/transfer")
         .then()
                 .assertThat()
                 .statusCode(HttpStatus.SC_OK)
-                .body("receiverAccountId", Matchers.equalTo(2))
-                .body("senderAccountId", Matchers.equalTo(1))
-                .body("amount", Matchers.equalTo(50.0F))
+                .body("receiverAccountId", Matchers.equalTo(82))
+                .body("senderAccountId", Matchers.equalTo(81))
+                .body("amount", Matchers.equalTo(57.0F))
                 .body("message", Matchers.equalTo("Transfer successful"));
+
+
+        Utils.isTransactionExists(81, 82, "TRANSFER_OUT", 57.0f);
     }
 
     @Test
@@ -59,27 +59,29 @@ public class TransferMoneyTest {
         given()
                 .contentType(ContentType.JSON)
                 .accept(ContentType.JSON)
-                .header("Authorization", USER_ZIMENI_TOKEN)
+                .header("Authorization", Utils.USER_ZIMENI_TOKEN)
                 .body("""
                         {
-                          "senderAccountId": 1,
-                          "receiverAccountId": 3,
-                          "amount": 50
+                          "senderAccountId": 81,
+                          "receiverAccountId": 79,
+                          "amount": 5
                         }
                         """)
                 .post("http://localhost:4111/api/v1/accounts/transfer")
                 .then()
                 .assertThat()
                 .statusCode(HttpStatus.SC_OK)
-                .body("receiverAccountId", Matchers.equalTo(3))
-                .body("senderAccountId", Matchers.equalTo(1))
-                .body("amount", Matchers.equalTo(50.0F))
+                .body("receiverAccountId", Matchers.equalTo(79))
+                .body("senderAccountId", Matchers.equalTo(81))
+                .body("amount", Matchers.equalTo(5.0F))
                 .body("message", Matchers.equalTo("Transfer successful"));
+
+        Utils.isTransactionExists(81, 79, "TRANSFER_OUT", 5.0F);
     }
 
 
     @CsvSource({
-            "-10, Invalid transfer: insufficient funds or invalid accounts",
+            "-10.0, Invalid transfer: insufficient funds or invalid accounts",
             "0, Invalid transfer: insufficient funds or invalid accounts"
     })
     @ParameterizedTest
@@ -87,8 +89,8 @@ public class TransferMoneyTest {
 
         String requestBody = String.format("""
                         {
-                          "senderAccountId": 1,
-                          "receiverAccountId": 3,
+                          "senderAccountId": 81,
+                          "receiverAccountId": 82,
                           "amount": %s
                         }
                         """, sum);
@@ -96,13 +98,15 @@ public class TransferMoneyTest {
         given()
                 .contentType(ContentType.JSON)
                 .accept(ContentType.JSON)
-                .header("Authorization", USER_ZIMENI_TOKEN)
+                .header("Authorization", Utils.USER_ZIMENI_TOKEN)
                 .body(requestBody)
                 .post("http://localhost:4111/api/v1/accounts/transfer")
         .then()
                 .assertThat()
                 .statusCode(HttpStatus.SC_BAD_REQUEST)
                 .body(Matchers.equalTo(error));
+
+        Utils.isTransactionDoesntExist(81, 82, "TRANSFER_OUT", sum);
     }
 
 
@@ -111,12 +115,12 @@ public class TransferMoneyTest {
         given()
                 .contentType(ContentType.JSON)
                 .accept(ContentType.JSON)
-                .header("Authorization", USER_ZIMENI_TOKEN)
+                .header("Authorization", Utils.USER_ZIMENI_TOKEN)
                 .body("""
                         {
-                          "senderAccountId": 1,
-                          "receiverAccountId": 3,
-                          "amount": 1000
+                          "senderAccountId": 81,
+                          "receiverAccountId": 82,
+                          "amount": 10000
                         }
                         """)
                 .post("http://localhost:4111/api/v1/accounts/transfer")
@@ -124,6 +128,8 @@ public class TransferMoneyTest {
                 .assertThat()
                 .statusCode(HttpStatus.SC_BAD_REQUEST)
                 .body(Matchers.equalTo("Invalid transfer: insufficient funds or invalid accounts"));
+
+        Utils.isTransactionDoesntExist(81, 82, "TRANSFER_OUT", 10000.0f);
     }
 
     @Test
@@ -131,11 +137,11 @@ public class TransferMoneyTest {
         given()
                 .contentType(ContentType.JSON)
                 .accept(ContentType.JSON)
-                .header("Authorization", USER_ZIMENI_TOKEN)
+                .header("Authorization", Utils.USER_ZIMENI_TOKEN)
                 .body("""
                         {
-                          "senderAccountId": 1,
-                          "receiverAccountId": 5,
+                          "senderAccountId": 81,
+                          "receiverAccountId": 5666,
                           "amount": 10
                         }
                         """)
@@ -144,6 +150,8 @@ public class TransferMoneyTest {
                 .assertThat()
                 .statusCode(HttpStatus.SC_BAD_REQUEST)
                 .body(Matchers.equalTo("Invalid transfer: insufficient funds or invalid accounts"));
+
+        Utils.isTransactionDoesntExist(81, 5666, "TRANSFER_OUT", 10.0f);
     }
 
     @Test
@@ -153,7 +161,7 @@ public class TransferMoneyTest {
                 .accept(ContentType.JSON)
                 .body("""
                         {
-                          "senderAccountId": 1,
+                          "senderAccountId": 81,
                           "receiverAccountId": 5,
                           "amount": 10
                         }
@@ -162,6 +170,8 @@ public class TransferMoneyTest {
                 .then()
                 .assertThat()
                 .statusCode(HttpStatus.SC_UNAUTHORIZED);
+
+        Utils.isTransactionDoesntExist(81, 5, "TRANSFER_OUT", 10.0f);
     }
 
 

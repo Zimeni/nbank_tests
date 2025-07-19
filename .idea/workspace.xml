@@ -5,11 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3726eb59-b080-4ca0-9b14-3b624cb9dd65" name="Changes" comment="iteration 2 tests - added 2 negative cases">
-      <change afterPath="$PROJECT_DIR$/src/test/java/iteration2/DepositMoneyTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/iteration2/TransferMoneyTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/iteration2/UserNameChangeTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/test/java/iteration2/Utils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/iteration2/DepositMoneyTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/iteration2/DepositMoneyTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/iteration2/TransferMoneyTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/iteration2/TransferMoneyTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/iteration2/UserNameChangeTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/iteration2/UserNameChangeTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -26,7 +27,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="iteration2_tests" />
+        <entry key="$PROJECT_DIR$" value="feature/senior_api_test_iteration2" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -64,7 +65,7 @@
       <recent name="$PROJECT_DIR$/src/test/java/requests" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.UserNameChangeTest.userWithRoleAdminCannotChangeName">
+  <component name="RunManager" selected="JUnit.UserNameChangeTest.userCannotChangeNameWithInvalidValues">
     <configuration name="TransferMoneyTest.unauthorizedUserCannotTransferBetweenAccounts" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="nbank_tests" />
       <extension name="coverage">
@@ -81,7 +82,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="UserNameChangeTest.unauthorizedUserCannotChangeName" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="TransferMoneyTest.userCannotTransferInvalidSumBetweenAccounts" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="nbank_tests" />
       <extension name="coverage">
         <pattern>
@@ -90,14 +91,14 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="iteration2" />
-      <option name="MAIN_CLASS_NAME" value="iteration2.UserNameChangeTest" />
-      <option name="METHOD_NAME" value="unauthorizedUserCannotChangeName" />
+      <option name="MAIN_CLASS_NAME" value="iteration2.TransferMoneyTest" />
+      <option name="METHOD_NAME" value="userCannotTransferInvalidSumBetweenAccounts(java.lang.Float,java.lang.String)" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="UserNameChangeTest.userCanChangeNameOnHisProfile" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="TransferMoneyTest.userCannotTransferSumFromInsufficientBalance" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="nbank_tests" />
       <extension name="coverage">
         <pattern>
@@ -106,8 +107,24 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="iteration2" />
-      <option name="MAIN_CLASS_NAME" value="iteration2.UserNameChangeTest" />
-      <option name="METHOD_NAME" value="userCanChangeNameOnHisProfile" />
+      <option name="MAIN_CLASS_NAME" value="iteration2.TransferMoneyTest" />
+      <option name="METHOD_NAME" value="userCannotTransferSumFromInsufficientBalance" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TransferMoneyTest.userCannotTransferToNonexistingAccount" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="nbank_tests" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="iteration2.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="iteration2" />
+      <option name="MAIN_CLASS_NAME" value="iteration2.TransferMoneyTest" />
+      <option name="METHOD_NAME" value="userCannotTransferToNonexistingAccount" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -129,29 +146,13 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="UserNameChangeTest.userWithRoleAdminCannotChangeName" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="nbank_tests" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="iteration2.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="iteration2" />
-      <option name="MAIN_CLASS_NAME" value="iteration2.UserNameChangeTest" />
-      <option name="METHOD_NAME" value="userWithRoleAdminCannotChangeName" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.UserNameChangeTest.userWithRoleAdminCannotChangeName" />
         <item itemvalue="JUnit.UserNameChangeTest.userCannotChangeNameWithInvalidValues" />
-        <item itemvalue="JUnit.UserNameChangeTest.unauthorizedUserCannotChangeName" />
-        <item itemvalue="JUnit.UserNameChangeTest.userCanChangeNameOnHisProfile" />
         <item itemvalue="JUnit.TransferMoneyTest.unauthorizedUserCannotTransferBetweenAccounts" />
+        <item itemvalue="JUnit.TransferMoneyTest.userCannotTransferToNonexistingAccount" />
+        <item itemvalue="JUnit.TransferMoneyTest.userCannotTransferSumFromInsufficientBalance" />
+        <item itemvalue="JUnit.TransferMoneyTest.userCannotTransferInvalidSumBetweenAccounts" />
       </list>
     </recent_temporary>
   </component>

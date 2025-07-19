@@ -17,10 +17,6 @@ import static io.restassured.RestAssured.given;
 
 public class DepositMoneyTest {
 
-    private final String ADMIN_TOKEN = "Basic YWRtaW46YWRtaW4=";
-    private final String USER_ZIMENI_TOKEN = "Basic emltZW5pOlppbWVuaTMzJA==";
-    private final String USER_NOT_ZIMENI_TOKEN = "Basic bm90X3ppbWVuaTpaaW1lbmkzMyQ=";
-
     @BeforeAll
     public static void setupRestAssured() {
         RestAssured.filters(
@@ -36,27 +32,28 @@ public class DepositMoneyTest {
         given()
                 .contentType(ContentType.JSON)
                 .accept(ContentType.JSON)
-                .header("Authorization", USER_ZIMENI_TOKEN)
+                .header("Authorization", Utils.USER_ZIMENI_TOKEN)
                 .body("""
                     {
-                      "id": 1,
-                      "balance": 100
+                      "id": 81,
+                      "balance": 4
                     }
                 """)
                 .post("http://localhost:4111/api/v1/accounts/deposit")
         .then()
                 .assertThat()
                 .statusCode(HttpStatus.SC_OK)
-                .body("balance", Matchers.equalTo(500.0F))
-                .body("id", Matchers.equalTo(1));
+                .body("balance", Matchers.equalTo(1508.0f))
+                .body("id", Matchers.equalTo(81));
 
 
+        Utils.isTransactionExists(81, 81, "DEPOSIT", 4.0f);
     }
 
 
     @CsvSource({
-            "1, -10, Invalid account or amount",
-            "1, 0, Invalid account or amount"
+            "81, -10.0, Invalid account or amount",
+            "81, 0, Invalid account or amount"
     })
     @ParameterizedTest
     public void userCannotDepositInvalidSumTest(Integer accountId, Float balance, String error) {
@@ -71,13 +68,14 @@ public class DepositMoneyTest {
         given()
                 .contentType(ContentType.JSON)
                 .accept(ContentType.JSON)
-                .header("Authorization", USER_ZIMENI_TOKEN)
+                .header("Authorization", Utils.USER_ZIMENI_TOKEN)
                 .body(requestBody)
                 .post("http://localhost:4111/api/v1/accounts/deposit")
         .then()
                 .assertThat()
                 .statusCode(HttpStatus.SC_BAD_REQUEST)
                 .body(Matchers.equalTo(error));
+
 
 
     }
@@ -87,11 +85,11 @@ public class DepositMoneyTest {
         given()
                 .contentType(ContentType.JSON)
                 .accept(ContentType.JSON)
-                .header("Authorization", USER_ZIMENI_TOKEN)
+                .header("Authorization", Utils.USER_ZIMENI_TOKEN)
                 .body("""
                     {
-                      "id": 3,
-                      "balance": 100
+                      "id": 80,
+                      "balance": 998
                     }
                 """)
                 .post("http://localhost:4111/api/v1/accounts/deposit")
@@ -99,6 +97,10 @@ public class DepositMoneyTest {
                 .assertThat()
                 .statusCode(HttpStatus.SC_FORBIDDEN)
                 .body(Matchers.equalTo("Unauthorized access to account"));
+
+
+        Utils.isTransactionDoesntExist(81, 80, "DEPOSIT", 998.0f);
+
     }
 
     @Test
@@ -108,14 +110,16 @@ public class DepositMoneyTest {
                 .accept(ContentType.JSON)
                 .body("""
                     {
-                      "id": 3,
-                      "balance": 100
+                      "id": 81,
+                      "balance": 8989
                     }
                 """)
                 .post("http://localhost:4111/api/v1/accounts/deposit")
         .then()
                 .assertThat()
                 .statusCode(HttpStatus.SC_UNAUTHORIZED);
+
+        Utils.isTransactionDoesntExist(81, 81, "DEPOSIT", 8989.0f);
     }
 
 

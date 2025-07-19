@@ -16,9 +16,7 @@ import java.util.List;
 import static io.restassured.RestAssured.given;
 
 public class UserNameChangeTest {
-    private final String USER_ZIMENI_TOKEN = "Basic emltZW5pOlppbWVuaTMzJA==";
 
-    private final String ADMIN_TOKEN = "Basic YWRtaW46YWRtaW4=";
 
     @BeforeAll
     public static void setupRestAssured() {
@@ -36,7 +34,7 @@ public class UserNameChangeTest {
         given()
                 .contentType(ContentType.JSON)
                 .accept(ContentType.JSON)
-                .header("Authorization", USER_ZIMENI_TOKEN)
+                .header("Authorization", Utils.USER_ZIMENI_TOKEN)
                 .body("""
                     {
                       "name": "zimeni Updated"
@@ -46,9 +44,10 @@ public class UserNameChangeTest {
         .then()
                 .assertThat()
                 .statusCode(HttpStatus.SC_OK)
-                .body("customer.id", Matchers.equalTo(1))
+                .body("customer.id", Matchers.equalTo(98))
                 .body("customer.name", Matchers.equalTo("zimeni Updated"));
 
+       Utils.nameEqualsTo(98, "zimeni Updated");
     }
 
     @Test
@@ -58,13 +57,16 @@ public class UserNameChangeTest {
                 .accept(ContentType.JSON)
                 .body("""
                     {
-                      "name": "zimeni Updated"
+                      "name": "zimeni Updated2"
                     }
                 """)
                 .put("http://localhost:4111/api/v1/customer/profile")
         .then()
                 .assertThat()
                 .statusCode(HttpStatus.SC_UNAUTHORIZED);
+
+
+        Utils.nameNotEqualTo(98, "zimeni Updated2");
     }
 
     @CsvSource({
@@ -85,13 +87,15 @@ public class UserNameChangeTest {
         given()
                 .contentType(ContentType.JSON)
                 .accept(ContentType.JSON)
-                .header("Authorization", USER_ZIMENI_TOKEN)
+                .header("Authorization", Utils.USER_ZIMENI_TOKEN)
                 .body(requestBody)
                 .put("http://localhost:4111/api/v1/customer/profile")
         .then()
                 .assertThat()
                 .statusCode(HttpStatus.SC_BAD_REQUEST)
                 .body(Matchers.equalTo(error));
+
+        Utils.nameNotEqualTo(98, name);
     }
 
     @Test
@@ -99,16 +103,18 @@ public class UserNameChangeTest {
         given()
                 .contentType(ContentType.JSON)
                 .accept(ContentType.JSON)
-                .header("Authorization", ADMIN_TOKEN)
+                .header("Authorization", Utils.ADMIN_TOKEN)
                 .body("""
                     {
-                      "name": "zimeni Updated"
+                      "name": "zimeni Updated222"
                     }
                 """)
                 .put("http://localhost:4111/api/v1/customer/profile")
         .then()
                 .assertThat()
                 .statusCode(HttpStatus.SC_FORBIDDEN);
+
+        Utils.nameNotEqualTo(98, "zimeni Updated222");
     }
 
 }
