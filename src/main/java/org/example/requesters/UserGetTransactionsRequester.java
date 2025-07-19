@@ -8,19 +8,14 @@ import org.example.models.BaseModel;
 
 import static io.restassured.RestAssured.given;
 
-public class UserCreateAccountRequester extends Request {
-    public UserCreateAccountRequester(RequestSpecification requestSpecification, ResponseSpecification responseSpecification) {
+public class UserGetTransactionsRequester extends Request{
+    public UserGetTransactionsRequester(RequestSpecification requestSpecification, ResponseSpecification responseSpecification) {
         super(requestSpecification, responseSpecification);
     }
 
     @Override
     public ValidatableResponse post(BaseModel requestBody) {
-        return given()
-                .spec(requestSpecification)
-                .post("/api/v1/accounts")
-                .then()
-                .assertThat()
-                .spec(responseSpecification);
+        return null;
     }
 
     @Override
@@ -30,6 +25,11 @@ public class UserCreateAccountRequester extends Request {
 
     @Override
     public ValidatableResponse get(Integer id) {
-        return null;
+        return given()
+                .spec(requestSpecification)
+                .get("/api/v1/accounts/"+ id + "/transactions")
+                .then()
+                .assertThat()
+                .spec(responseSpecification);
     }
 }

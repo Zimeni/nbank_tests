@@ -30,7 +30,7 @@ public class UserChangeNameRequester extends Request<NameChangeRequest>{
     }
 
     @Override
-    public Response get() {
+    public ValidatableResponse get(Integer id) {
         return null;
     }
 }

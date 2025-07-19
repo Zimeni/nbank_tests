@@ -30,7 +30,7 @@ public class UserLoginRequester extends Request<LoginUserRequest>{
     }
 
     @Override
-    public Response get() {
+    public ValidatableResponse get(Integer id) {
         return null;
     }
 }

@@ -5,24 +5,22 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3726eb59-b080-4ca0-9b14-3b624cb9dd65" name="Changes" comment="middle API test iteration 2">
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/models/CreateUserRequest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/models/CreateUserResponse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/models/UserRole.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/requesters/AdminCreateUserRequester.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/requesters/UserCreateAccountRequester.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/models/GetProfileResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/models/TransactionType.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/requesters/UserGetProfileRequester.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/requesters/UserGetTransactionsRequester.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/models/Account.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/models/AccountReponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/models/AccountReponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/models/CreateAccountReponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/models/CreateUserResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/models/CreateUserResponse.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/models/Customer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/models/Customer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/models/TransferMoneyRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/models/TransferMoneyRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/requests/Request.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/requesters/Request.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/requests/UserChangeNameRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/requesters/UserChangeNameRequester.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/requests/UserDepositMoneyRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/requesters/UserDepositMoneyRequester.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/requests/UserGetAccountRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/requesters/UserGetAccountRequester.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/requests/UserLoginRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/requesters/UserLoginRequester.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/requests/UserTransferRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/requesters/UserTransferRequester.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/specs/RequestSpecs.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/specs/RequestSpecs.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/specs/ResponseSpecs.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/specs/ResponseSpecs.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/requesters/AdminCreateUserRequester.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/requesters/AdminCreateUserRequester.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/requesters/Request.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/requesters/Request.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/requesters/UserChangeNameRequester.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/requesters/UserChangeNameRequester.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/requesters/UserCreateAccountRequester.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/requesters/UserCreateAccountRequester.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/requesters/UserDepositMoneyRequester.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/requesters/UserDepositMoneyRequester.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/requesters/UserGetAccountRequester.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/requesters/UserGetAccountRequester.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/requesters/UserLoginRequester.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/requesters/UserLoginRequester.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/requesters/UserTransferRequester.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/requesters/UserTransferRequester.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/iteration2/DepositMoneyTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/iteration2/DepositMoneyTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/iteration2/TransferMoneyTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/iteration2/TransferMoneyTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/iteration2/UserNameChangeTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/iteration2/UserNameChangeTest.java" afterDir="false" />
@@ -82,11 +80,12 @@
       <recent name="$PROJECT_DIR$/src/test/java/requests" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="org.example.requesters" />
       <recent name="org.example.models" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.UserNameChangeTest.userWithRoleAdminCannotChangeName">
-    <configuration name="DepositMoneyTest.unauthorizedUserCannotDepositTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="JUnit.DepositMoneyTest">
+    <configuration name="DepositMoneyTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="nbank_tests" />
       <extension name="coverage">
         <pattern>
@@ -96,8 +95,22 @@
       </extension>
       <option name="PACKAGE_NAME" value="iteration2" />
       <option name="MAIN_CLASS_NAME" value="iteration2.DepositMoneyTest" />
-      <option name="METHOD_NAME" value="unauthorizedUserCannotDepositTest" />
-      <option name="TEST_OBJECT" value="method" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TransferMoneyTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="nbank_tests" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="iteration2.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="iteration2" />
+      <option name="MAIN_CLASS_NAME" value="iteration2.TransferMoneyTest" />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -118,7 +131,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="UserNameChangeTest.userCanChangeNameOnHisProfile" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="TransferMoneyTest.userCannotTransferSumFromInsufficientBalance" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="nbank_tests" />
       <extension name="coverage">
         <pattern>
@@ -127,14 +140,14 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="iteration2" />
-      <option name="MAIN_CLASS_NAME" value="iteration2.UserNameChangeTest" />
-      <option name="METHOD_NAME" value="userCanChangeNameOnHisProfile" />
+      <option name="MAIN_CLASS_NAME" value="iteration2.TransferMoneyTest" />
+      <option name="METHOD_NAME" value="userCannotTransferSumFromInsufficientBalance" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="UserNameChangeTest.userCannotChangeNameWithInvalidValues" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="UserNameChangeTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="nbank_tests" />
       <extension name="coverage">
         <pattern>
@@ -144,35 +157,18 @@
       </extension>
       <option name="PACKAGE_NAME" value="iteration2" />
       <option name="MAIN_CLASS_NAME" value="iteration2.UserNameChangeTest" />
-      <option name="METHOD_NAME" value="userCannotChangeNameWithInvalidValues(java.lang.String,java.lang.String)" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="UserNameChangeTest.userWithRoleAdminCannotChangeName" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="nbank_tests" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="iteration2.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="iteration2" />
-      <option name="MAIN_CLASS_NAME" value="iteration2.UserNameChangeTest" />
-      <option name="METHOD_NAME" value="userWithRoleAdminCannotChangeName" />
-      <option name="TEST_OBJECT" value="method" />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.UserNameChangeTest.userWithRoleAdminCannotChangeName" />
-        <item itemvalue="JUnit.DepositMoneyTest.unauthorizedUserCannotDepositTest" />
-        <item itemvalue="JUnit.UserNameChangeTest.userCannotChangeNameWithInvalidValues" />
-        <item itemvalue="JUnit.UserNameChangeTest.userCanChangeNameOnHisProfile" />
+        <item itemvalue="JUnit.DepositMoneyTest" />
+        <item itemvalue="JUnit.TransferMoneyTest" />
+        <item itemvalue="JUnit.UserNameChangeTest" />
         <item itemvalue="JUnit.TransferMoneyTest.unauthorizedUserCannotTransferBetweenAccounts" />
+        <item itemvalue="JUnit.TransferMoneyTest.userCannotTransferSumFromInsufficientBalance" />
       </list>
     </recent_temporary>
   </component>
@@ -213,6 +209,29 @@
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="feature/middle_api_test_iteration2" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="first commit" />
     <MESSAGE value="iteration 2 tests" />
@@ -224,13 +243,18 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/java/iteration2/DepositMoneyTest.java</url>
-          <line>36</line>
+          <line>37</line>
           <option name="timeStamp" value="3" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/java/iteration2/DepositMoneyTest.java</url>
-          <line>43</line>
+          <line>44</line>
           <option name="timeStamp" value="4" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/test/java/iteration2/UserNameChangeTest.java</url>
+          <line>37</line>
+          <option name="timeStamp" value="11" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

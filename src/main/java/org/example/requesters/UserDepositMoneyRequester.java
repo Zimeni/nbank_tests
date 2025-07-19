@@ -30,7 +30,7 @@ public class UserDepositMoneyRequester extends Request<DepositMoneyRequest>{
     }
 
     @Override
-    public Response get() {
+    public ValidatableResponse get(Integer id) {
         return null;
     }
 }

@@ -31,7 +31,7 @@ public class AdminCreateUserRequester extends Request<CreateUserRequest>{
     }
 
     @Override
-    public Response get() {
+    public ValidatableResponse get(Integer id) {
         return null;
     }
 }

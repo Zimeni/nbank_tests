@@ -30,7 +30,7 @@ public class UserTransferRequester extends Request<TransferMoneyRequest> {
     }
 
     @Override
-    public Response get() {
+    public ValidatableResponse get(Integer id) {
         return null;
     }
 }

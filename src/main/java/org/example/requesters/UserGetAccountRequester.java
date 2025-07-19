@@ -24,14 +24,12 @@ public class UserGetAccountRequester extends Request{
     }
 
     @Override
-    public Response get() {
+    public ValidatableResponse get(Integer id) {
         return given()
                 .spec(requestSpecification)
                 .get("/api/v1/customer/accounts")
                 .then()
                 .assertThat()
-                .spec(responseSpecification)
-                .extract()
-                .response();
+                .spec(responseSpecification);
     }
 }

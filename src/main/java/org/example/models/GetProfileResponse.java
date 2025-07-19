@@ -11,9 +11,12 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class AccountReponse {
+public class GetProfileResponse extends BaseModel {
     private int id;
-    private String accountNumber;
-    private float balance;
-    private List<Transaction> transactions;
+    private String username;
+    private String password;
+    private String name;
+    private UserRole role;
+    private List<CreateAccountReponse> accounts;
+
 }

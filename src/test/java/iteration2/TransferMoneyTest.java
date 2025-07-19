@@ -39,10 +39,13 @@ public class TransferMoneyTest extends BaseTest {
                 .extract()
                 .as(DepositMoneyResponse.class);
 
+
+        var transferAmount = 50.0f;
+
         TransferMoneyRequest request = TransferMoneyRequest.builder()
                 .senderAccountId(accountOne.getId())
                 .receiverAccountId(accountTwo.getId())
-                .amount(50)
+                .amount(transferAmount)
                 .build();
 
         var response = new UserTransferRequester(
@@ -58,6 +61,9 @@ public class TransferMoneyTest extends BaseTest {
         soflty.assertThat(request.getSenderAccountId() == response.getSenderAccountId());
         soflty.assertThat(request.getAmount()).isEqualTo(response.getAmount());
         soflty.assertThat(error.equals(response.getMessage()));
+
+
+        Utils.isTransactionExists(user, accountOne.getId(), accountTwo.getId(), TransactionType.TRANSFER_OUT.name(), transferAmount);
 
     }
 
@@ -80,10 +86,12 @@ public class TransferMoneyTest extends BaseTest {
                 .extract()
                 .as(DepositMoneyResponse.class);
 
+        var transferAmount = 50.0f;
+
         TransferMoneyRequest request = TransferMoneyRequest.builder()
                 .senderAccountId(accountOne.getId())
                 .receiverAccountId(anotherUserAccount.getId())
-                .amount(50)
+                .amount(transferAmount)
                 .build();
 
         var response = new UserTransferRequester(
@@ -99,6 +107,8 @@ public class TransferMoneyTest extends BaseTest {
         soflty.assertThat(request.getSenderAccountId() == response.getSenderAccountId());
         soflty.assertThat(request.getAmount()).isEqualTo(response.getAmount());
         soflty.assertThat(error.equals(response.getMessage()));
+
+        Utils.isTransactionExists(user, accountOne.getId(), anotherUserAccount.getId(), TransactionType.TRANSFER_OUT.name(), transferAmount);
     }
 
 
@@ -134,6 +144,9 @@ public class TransferMoneyTest extends BaseTest {
                 RequestSpecs.authorizedUserSpec(user.getUsername(), user.getPassword()),
                 ResponseSpecs.returnsBadRequestWithError(error)
         ).post(request);
+
+        Utils.isTransactionDoesntExist(user, accountOne.getId(), accountTwo.getId(), TransactionType.TRANSFER_OUT.name(), sum);
+
     }
 
 
@@ -143,22 +156,27 @@ public class TransferMoneyTest extends BaseTest {
         var accountOne = Utils.getAccount(user);
         var accountTwo = Utils.getAccount(user);
 
+        var transferAmount = 10000.0f;
+
         TransferMoneyRequest request = TransferMoneyRequest.builder()
                 .senderAccountId(accountOne.getId())
                 .receiverAccountId(accountTwo.getId())
-                .amount(10000)
+                .amount(transferAmount)
                 .build();
 
         new UserTransferRequester(
                 RequestSpecs.authorizedUserSpec(user.getUsername(), user.getPassword()),
                 ResponseSpecs.returnsBadRequestWithError("Invalid transfer: insufficient funds or invalid accounts")
         ).post(request);
+
+        Utils.isTransactionDoesntExist(user, accountOne.getId(), accountTwo.getId(), TransactionType.TRANSFER_OUT.name(), transferAmount);
     }
 
     @Test
     public void userCannotTransferToNonexistingAccount() {
         var accountOne = Utils.getAccount(user);
 
+        var transferAmount = 10000.0f;
         TransferMoneyRequest request = TransferMoneyRequest.builder()
                 .senderAccountId(accountOne.getId())
                 .receiverAccountId(Integer.MAX_VALUE)
@@ -169,6 +187,8 @@ public class TransferMoneyTest extends BaseTest {
                 RequestSpecs.authorizedUserSpec(user.getUsername(), user.getPassword()),
                 ResponseSpecs.returnsBadRequestWithError("Invalid transfer: insufficient funds or invalid accounts")
         ).post(request);
+
+        Utils.isTransactionDoesntExist(user, accountOne.getId(), Integer.MAX_VALUE, TransactionType.TRANSFER_OUT.name(), transferAmount);
     }
 
     @Test
@@ -179,16 +199,20 @@ public class TransferMoneyTest extends BaseTest {
         var accountTwo = Utils.getAccount(user);
 
 
+        var transferAmount = 10.0f;
+
         TransferMoneyRequest request = TransferMoneyRequest.builder()
                 .senderAccountId(accountOne.getId())
-                .receiverAccountId(accountOne.getId())
-                .amount(10)
+                .receiverAccountId(accountTwo.getId())
+                .amount(transferAmount)
                 .build();
 
         new UserTransferRequester(
                 RequestSpecs.unauthorizedSpec(),
                 ResponseSpecs.returnsUnauthorized()
         ).post(request);
+
+        Utils.isTransactionDoesntExist(user, accountOne.getId(), accountTwo.getId(), TransactionType.TRANSFER_OUT.name(), transferAmount);
     }
 
 

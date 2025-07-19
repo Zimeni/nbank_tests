@@ -3,8 +3,8 @@ package iteration2;
 import org.example.models.DepositMoneyRequest;
 import org.example.models.DepositMoneyResponse;
 import org.example.models.LoginUserRequest;
+import org.example.models.TransactionType;
 import org.example.requesters.UserDepositMoneyRequester;
-import org.example.requesters.UserGetAccountRequester;
 import org.example.specs.RequestSpecs;
 import org.example.specs.ResponseSpecs;
 import org.junit.jupiter.api.BeforeEach;
@@ -28,10 +28,11 @@ public class DepositMoneyTest extends BaseTest{
 
         Float currentBalance = account.getBalance();
         float expectedBalance = currentBalance + 100;
+        float depositAmount = 100F;
 
         DepositMoneyRequest request = DepositMoneyRequest.builder()
                 .id(account.getId())
-                .balance(100F)
+                .balance(depositAmount)
                 .build();
 
         DepositMoneyResponse response = new UserDepositMoneyRequester(
@@ -44,20 +45,22 @@ public class DepositMoneyTest extends BaseTest{
         soflty.assertThat(request.getId() == response.getId());
         soflty.assertThat(response.getBalance()).isEqualTo(expectedBalance);
 
+        Utils.isTransactionExists(user, account.getId(), account.getId(), TransactionType.DEPOSIT.name(), depositAmount);
+
     }
 
 
     @CsvSource({
-            "1, -10, Invalid account or amount",
-            "1, 0, Invalid account or amount"
+            "-10, Invalid account or amount",
+            "0, Invalid account or amount"
     })
     @ParameterizedTest
-    public void userCannotDepositInvalidSumTest(Integer accountId, Float balance, String error) {
+    public void userCannotDepositInvalidSumTest(Float balance, String error) {
 
-        Utils.getAccount(user);
+        var account = Utils.getAccount(user);
 
         DepositMoneyRequest request = DepositMoneyRequest.builder()
-                .id(accountId)
+                .id(account.getId())
                 .balance(balance)
                 .build();
 
@@ -65,17 +68,23 @@ public class DepositMoneyTest extends BaseTest{
                 RequestSpecs.authorizedUserSpec(user.getUsername(), user.getPassword()),
                 ResponseSpecs.returnsBadRequestWithError(error)
         ).post(request);
+
+        Utils.isTransactionDoesntExist(user, account.getId(), account.getId(), TransactionType.DEPOSIT.name(), balance);
     }
 
     @Test
     public void userCannotDepositSumToNotHisAccountTest() {
 
+        var account = Utils.getAccount(user);
+
         var anotherUser = Utils.getUser();
         var anotherUserAccount = Utils.getAccount(anotherUser);
 
+        var depositAmount = 100.0f;
+
         DepositMoneyRequest request = DepositMoneyRequest.builder()
                 .id(anotherUserAccount.getId())
-                .balance(100)
+                .balance(depositAmount)
                 .build();
 
         new UserDepositMoneyRequester(
@@ -83,21 +92,26 @@ public class DepositMoneyTest extends BaseTest{
                 ResponseSpecs.returnsForbiddenWithError("Unauthorized access to account")
         ).post(request);
 
+        Utils.isTransactionDoesntExist(user, account.getId(), anotherUserAccount.getId(), TransactionType.DEPOSIT.name(), depositAmount);
+
     }
 
     @Test
     public void unauthorizedUserCannotDepositTest() {
 
         var account = Utils.getAccount(user);
+        var depositAmount = 100.0f;
 
         DepositMoneyRequest request = DepositMoneyRequest.builder()
                 .id(account.getId())
-                .balance(100)
+                .balance(depositAmount)
                 .build();
 
         new UserDepositMoneyRequester(
                 RequestSpecs.unauthorizedSpec(),
                 ResponseSpecs.returnsUnauthorized()
         ).post(request);
+
+        Utils.isTransactionDoesntExist(user, account.getId(), account.getId(), TransactionType.DEPOSIT.name(), depositAmount);
     }
 }
