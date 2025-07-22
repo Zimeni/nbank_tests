@@ -1,0 +1,91 @@
+#Итерация 2:
+#1. Депозит денег пользователем
+#2. Перевод денег с одного аккаунта на другой
+#3. Изменение имени пользователя
+
+
+#3. Авторизованныйюзерможетсоздаватьновыйсчет
+#4. Авторизованный юзер может пополнять свой счет
+#5. Авторизованный юзер может пересылать деньги с одного счета на другой
+#6. Авторизованный юзер может видеть транзакции своих счетов
+#7. Авторизованный юзер может изменить имя в профиле
+
+
+### Positive: Authorized user can transfer money between his accounts
+POST http://localhost:4111/api/v1/accounts/transfer
+# result:
+#{
+#  "receiverAccountId": 2,
+#  "amount": 50.0,
+#  "message": "Transfer successful",
+#  "senderAccountId": 1
+#}
+Content-Type: application/json
+Authorization: Basic emltZW5pOlppbWVuaTMzJA==
+
+{
+  "senderAccountId": 1,
+  "receiverAccountId": 2,
+  "amount": 50
+}
+
+### Negative:Authorized user cannot transfer money between his account if sender account has insufficient funds
+# Result: Invalid transfer: insufficient funds or invalid accounts
+POST http://localhost:4111/api/v1/accounts/transfer
+Content-Type: application/json
+Authorization: Basic emltZW5pOlppbWVuaTMzJA==
+
+{
+  "senderAccountId": 1,
+  "receiverAccountId": 2,
+  "amount": 5000
+}
+
+### Negative:Authorized user cannot transfer money between his account and nonexisting account
+# Result: Invalid transfer: insufficient funds or invalid accounts
+POST http://localhost:4111/api/v1/accounts/transfer
+Content-Type: application/json
+Authorization: Basic emltZW5pOlppbWVuaTMzJA==
+
+{
+  "senderAccountId": 1,
+  "receiverAccountId": 200,
+  "amount": 10
+}
+
+### Negative:Authorized user cannot transfer 0 between his accounts
+# Result: Invalid transfer: insufficient funds or invalid accounts
+POST http://localhost:4111/api/v1/accounts/transfer
+Content-Type: application/json
+Authorization: Basic emltZW5pOlppbWVuaTMzJA==
+
+{
+  "senderAccountId": 1,
+  "receiverAccountId": 2,
+  "amount": 0
+}
+
+### Negative: Authorized user cannot transfer negative sum between his accounts
+# Result: Invalid transfer: insufficient funds or invalid accounts
+POST http://localhost:4111/api/v1/accounts/transfer
+Content-Type: application/json
+Authorization: Basic emltZW5pOlppbWVuaTMzJA==
+
+{
+  "senderAccountId": 1,
+  "receiverAccountId": 2,
+  "amount": -10
+}
+
+
+
+### Negative: Anauthorized user cannot transfer money between his account
+# Result: Response code: 401
+POST http://localhost:4111/api/v1/accounts/transfer
+Content-Type: application/json
+
+{
+  "senderAccountId": 1,
+  "receiverAccountId": 2,
+  "amount": 5000
+}

@@ -4,6 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
+
     <list default="true" id="3726eb59-b080-4ca0-9b14-3b624cb9dd65" name="Changes" comment="iteration 2 tests - added 2 negative cases">
       <change afterPath="$PROJECT_DIR$/src/test/java/iteration2/Utils.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
@@ -11,12 +12,14 @@
       <change beforePath="$PROJECT_DIR$/src/test/java/iteration2/DepositMoneyTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/iteration2/DepositMoneyTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/iteration2/TransferMoneyTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/iteration2/TransferMoneyTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/iteration2/UserNameChangeTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/iteration2/UserNameChangeTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/requests/iteration2_deposit_to_account.http" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/requests/iteration2_deposit_to_account.http" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
@@ -52,14 +55,14 @@
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+
     &quot;last_opened_file_path&quot;: &quot;/Users/zimeni/IdeaProjects/QA/nbank_tests/src/test/java/requests&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;
   }
 }</component>
+
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/test/java/requests" />
@@ -146,13 +149,22 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+     <configuration name="iteration2_deposit_to_account | Negative: Authorized user cannot deposit invalid sum to his account" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$PROJECT_DIR$/src/test/java/requests/iteration2_deposit_to_account.http" index="2" requestIdentifier="Negative: Authorized user cannot deposit invalid sum to his account" runType="Run single request">
+      <method v="2" />
+    </configuration>
+    <configuration name="iteration2_deposit_to_account | Negative: Authorized user cannot deposit zero sum to his account" type="HttpClient.HttpRequestRunConfigurationType" factoryName="HTTP Request" temporary="true" nameIsGenerated="true" path="$PROJECT_DIR$/src/test/java/requests/iteration2_deposit_to_account.http" index="3" requestIdentifier="Negative: Authorized user cannot deposit zero sum to his account" runType="Run single request">
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="HTTP Request.iteration2_deposit_to_account | Negative: Authorized user cannot deposit zero sum to his account" />
+        <item itemvalue="HTTP Request.iteration2_deposit_to_account | Negative: Authorized user cannot deposit invalid sum to his account" />
         <item itemvalue="JUnit.UserNameChangeTest.userCannotChangeNameWithInvalidValues" />
         <item itemvalue="JUnit.TransferMoneyTest.unauthorizedUserCannotTransferBetweenAccounts" />
         <item itemvalue="JUnit.TransferMoneyTest.userCannotTransferToNonexistingAccount" />
         <item itemvalue="JUnit.TransferMoneyTest.userCannotTransferSumFromInsufficientBalance" />
         <item itemvalue="JUnit.TransferMoneyTest.userCannotTransferInvalidSumBetweenAccounts" />
+
       </list>
     </recent_temporary>
   </component>

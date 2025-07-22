@@ -1,0 +1,54 @@
+#Итерация 2:
+#1. Депозит денег пользователем
+#2. Перевод денег с одного аккаунта на другой
+#3. Изменение имени пользователя
+
+
+#3. Авторизованныйюзерможетсоздаватьновыйсчет
+#4. Авторизованный юзер может пополнять свой счет
+#5. Авторизованный юзер может пересылать деньги с одного счета на другой
+#6. Авторизованный юзер может видеть транзакции своих счетов
+#7. Авторизованный юзер может изменить имя в профиле
+
+
+### Positive: Authorized user with role USER can create new account, creating account for zimeni
+### result:
+#{
+#  "id": 1,
+#  "accountNumber": "ACC1",
+#  "balance": 0.0,
+#  "transactions": []
+#}
+#{
+#  "id": 2,
+#  "accountNumber": "ACC2",
+#  "balance": 0.0,
+#  "transactions": []
+#}
+POST http://localhost:4111/api/v1/accounts
+Content-Type: application/json
+Authorization: Basic emltZW5pOlppbWVuaTMzJA==
+
+### Negative: Unauthorized user cannot create new account
+# result: Response code: 401
+POST http://localhost:4111/api/v1/accounts
+Content-Type: application/json
+
+### Positive: Authorized user with role USER can create new account, creating account for notZimeni
+### result:
+#{
+#  "id": 3,
+#  "accountNumber": "ACC3",
+#  "balance": 0.0,
+#  "transactions": []
+#}
+POST http://localhost:4111/api/v1/accounts
+Content-Type: application/json
+Authorization: Basic bm90WmltZW5pOm5vdFppbWVuaTMzJA==
+
+
+### Negative: Authorized user with role ADMIN cannot create new account
+# result: Response code: 403
+POST http://localhost:4111/api/v1/accounts
+Content-Type: application/json
+Authorization: Basic YWRtaW46YWRtaW4=
