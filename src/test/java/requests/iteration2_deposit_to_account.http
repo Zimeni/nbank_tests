@@ -1,0 +1,125 @@
+#Итерация 2:
+#1. Депозит денег пользователем
+#2. Перевод денег с одного аккаунта на другой
+#3. Изменение имени пользователя
+
+
+#3. Авторизованныйюзерможетсоздаватьновыйсчет
+#4. Авторизованный юзер может пополнять свой счет
+#5. Авторизованный юзер может пересылать деньги с одного счета на другой
+#6. Авторизованный юзер может видеть транзакции своих счетов
+#7. Авторизованный юзер может изменить имя в профиле
+
+
+### Positive: Authorized user can deposit money to his account
+POST http://localhost:4111/api/v1/accounts/deposit
+# result:
+#{
+#  "id": 1,
+#  "accountNumber": "ACC1",
+#  "balance": 100.0,
+#  "transactions": [
+#    {
+#      "id": 1,
+#      "amount": 100.0,
+#      "type": "DEPOSIT",
+#      "timestamp": "Tue Jul 15 18:13:01 UTC 2025",
+#      "relatedAccountId": 1
+#    }
+#  ]
+#}
+Content-Type: application/json
+Authorization: Basic emltZW5pOlppbWVuaTMzJA==
+
+{
+  "id": 1,
+  "balance": 100
+}
+
+### Negative: Authorized user cannot deposit negative sum to his account
+# Result: Invalid account or amount
+POST http://localhost:4111/api/v1/accounts/deposit
+Content-Type: application/json
+Authorization: Basic emltZW5pOlppbWVuaTMzJA==
+
+{
+  "id": 1,
+  "balance": -10
+}
+
+### Negative: Authorized user cannot deposit zero sum to his account
+# Result: Invalid account or amount
+POST http://localhost:4111/api/v1/accounts/deposit
+Content-Type: application/json
+Authorization: Basic emltZW5pOlppbWVuaTMzJA==
+
+{
+  "id": 1,
+  "balance": 0
+}
+
+### Negative: Authorized user cannot deposit money to account that is not his
+# Result: Unauthorized access to account
+POST http://localhost:4111/api/v1/accounts/deposit
+Content-Type: application/json
+Authorization: Basic emltZW5pOlppbWVuaTMzJA==
+
+{
+  "id": 3,
+  "balance": 100
+}
+
+### Negative: Anauthorized user cannot deposit money to his account
+# Result: Response code: 401
+POST http://localhost:4111/api/v1/accounts/deposit
+Content-Type: application/json
+
+{
+  "id": 1,
+  "balance": 100
+}
+
+### Negative: Unauthorized user cannot deposit money to account that is not his
+# Result: Response code: 401
+POST http://localhost:4111/api/v1/accounts/deposit
+Content-Type: application/json
+
+{
+  "id": 3,
+  "balance": 100
+}
+
+
+### Positive: authorized user can get the transactions list
+#Result (bug or not?): have to ask whether the transaction that was a mistake can be saved to the list
+# the last transaction to  account with "id": 4 was unsuccessful, as the account with this id doesn't exist
+#[
+#  {
+#    "id": 1,
+#    "amount": 100.0,
+#    "type": "DEPOSIT",
+#    "timestamp": "Tue Jul 15 18:13:01 UTC 2025",
+#    "relatedAccountId": 1
+#  },
+#  {
+#    "id": 2,
+#    "amount": 50.0,
+#    "type": "TRANSFER_OUT",
+#    "timestamp": "Tue Jul 15 18:34:52 UTC 2025",
+#    "relatedAccountId": 2
+#  },
+#  {
+#    "id": 4,
+#    "amount": 50.0,
+#    "type": "TRANSFER_OUT",
+#    "timestamp": "Tue Jul 15 18:35:44 UTC 2025",
+#    "relatedAccountId": 3
+#  }
+#]
+GET http://localhost:4111/api/v1/accounts/1/transactions
+Authorization: Basic emltZW5pOlppbWVuaTMzJA==
+
+
+### Positive: unauthorized user cannot get the transactions list
+#Result: Response code: 401
+GET http://localhost:4111/api/v1/accounts/1/transactions
